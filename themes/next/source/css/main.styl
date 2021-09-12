@@ -1,0 +1,250 @@
+// CSS Style Guide: http://codeguide.co/#css
+$scheme = hexo-config('scheme') ? hexo-config('scheme') : 'Muse';
+$variables = base $scheme;
+
+// Variables Layer
+// --------------------------------------------------
+for $variable in $variables {
+  @import '_variables/' + $variable;
+}
+
+for $inject_variable in hexo-config('injects.variable') {
+  @import $inject_variable;
+}
+
+// Mixins Layer
+// --------------------------------------------------
+@import '_mixins.styl';
+
+for $inject_mixin in hexo-config('injects.mixin') {
+  @import $inject_mixin;
+}
+
+// Dark mode colors
+// --------------------------------------------------
+@import '_colors.styl';
+// Common Layer
+// --------------------------------------------------
+
+// Scaffolding
+@import '_common/scaffolding';
+// Layout
+@import '_common/outline';
+// Components
+@import '_common/components';
+// Schemes Layer
+// --------------------------------------------------
+@import '_schemes/' + $scheme;
+
+// Custom Layer
+// --------------------------------------------------
+for $inject_style in hexo-config('injects.style') {
+  @import $inject_style;
+}
+
+// 设置背景
+body {
+  // background:
+  background-attachment: fixed;
+  // background: url('https://source.unsplash.com/random'); // source.unsplash.com/random);
+  // background: url(/images/background.jpg);
+  // background: rgba(0,0,0,1);
+  background-image: linear-gradient(to top, #fff1eb 0, #ace0f9 100%);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: black;
+}
+
+a, span.exturl {
+  border-bottom: none;
+}
+
+// 设置透明度
+.main-inner {
+  opacity: .9;
+}
+
+.header-inner {
+  margin-top: 20px;
+  opacity: .8;
+  z-index: 10;
+}
+
+.content {
+  padding-top: 20px;
+}
+
+// 取消行号
+.highlight .gutter {
+  display: none;
+}
+
+// 归档美化
+// .post-meta {
+// background-color: #49b1f5;
+// border-radius: 5px;
+// // position: absolute;
+// color: #fff;
+// display: inline;
+// font-size: 19px;
+// margin-left: 10px;
+// // font-size: $font-size-smallest;
+// margin-right: 10px;
+// padding-left: 5px;
+// padding-right: 5px;
+// }
+
+// .post-title {
+// background-color: #eff2f3;
+// border-radius: 5px;
+// // position: absolute;
+// color: #fff;
+// display: inline;
+// font-size: 19px;
+// margin-left: 10px;
+// margin-right: 10px;
+// padding-left: 5px;
+// padding-right: 5px;
+// }
+
+// 分类美化
+.category-list-link {
+  // position: absolute;
+  background-color: #eff2f3;
+  border-radius: 5px;
+  font-size: 19px;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  // margin-left: 10px;
+}
+
+// 文章主页标题美化
+.posts-expand .post-title-link {
+  // position: absolute;
+  // color: #fff;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+// 主页美化
+.sidebar {
+  background: none;
+  // opacity :0.9;
+}
+
+.sidebar-inner {
+  margin-top: 20px;
+}
+
+.content-wrap {
+  background: inherit;
+  padding-top: 0;
+}
+
+// 主页文章圆角透明
+.post-block {
+  background: #fff;
+  border-radius: 20px 20px 20px 20px;
+  margin-bottom: 60px;
+  margin-top: 0;
+  // opacity: none;
+  // opacity: .9;
+  padding: 25px;
+  -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+  -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
+}
+
+.posts-collapse .post-meta {
+  font-size: 19px;
+}
+
+// 返回顶部 透明
+.back-to-top {
+  background: none;
+}
+
+// h2 {
+// border: 1px solid #000;
+// padding: 9px;
+// border-left: 8px solid;
+// margin: 18px 0px 18px -20px;
+// box-shadow: 2px 6px 10px #555555
+// }
+// h2.post-title
+// {
+// padding: none;
+// border: none;
+// box-shadow: none
+// }
+
+// h3 {
+// font-size: 1.17em;
+// border: 1px solid #000;
+// padding: 9px;
+// // border-left: 8px solid;
+// margin: 18px 0px 18px -20px;
+// box-shadow: 2px 6px 10px #555555;
+// }
+// h4{
+// font-size: 1.05em;
+// border: 1px solid #000;
+// padding: 9px;
+// // border-left: 8px solid;
+// margin: 18px 0px 18px -20px;
+// box-shadow: 2px 6px 10px #555555;
+// }
+.post-body h1, .post-body h2 {
+  border-bottom: 2px solid #eee;
+}
+
+.post-body h3, .post-body h4 {
+  border-bottom: 2px solid #eee;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+.post-body p a {
+  border-bottom: none;
+  border-bottom: 1px solid #0593d3;
+  color: #0593d3;
+
+  &:hover {
+    border-bottom: none;
+    border-bottom: 1px solid #fc6423;
+    color: #fc6423;
+  }
+}
+
+code {
+  color: #c7254e;
+}
+
+blockquote {
+  background-color: #f2f2f2;
+  border-left: 6px solid #ddd;
+  color: black;
+}
+
+.post-button {
+  margin-top: 0;
+}
+
+.posts-expand .post-meta {
+  margin: 3px 0 25px;
+}
+
+.posts-collapse .collection-year {
+  margin: 5px 0;
+}
+
+.highlight, pre {
+  border-radius: 10px 10px 10px 10px;
+}
