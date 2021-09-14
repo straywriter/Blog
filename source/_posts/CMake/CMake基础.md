@@ -9,33 +9,7 @@ categories:
 
 -----
 
-# a
-
-基本命令
-
-​	cmake版本
-
-设置项目
-
-添加可执行文件
-
-
-
-
-
-语句
-
-条件语句
-
-循环语句
-
-
-
-
-
 ## 基础命令
-
-
 
 ### 最低版本 cmake_minimum_required
 
@@ -86,7 +60,7 @@ cmake中使用 `project(MyProject[C] [C++])` 不过后面的语言参数经常�
 
 cmake中使用`add_library`来实现库文件的生成； 命令：
 
-```
+```cmake
 add_library(
     libname 
     [SHARED|STATIC|MODULE] 
@@ -152,7 +126,7 @@ target_link_libraries(
 
  **添加需要的库文件的目录**
 
-```
+```cmake
 link_directories
 ```
 
@@ -162,7 +136,7 @@ link_directories
 
 以上的几条命令的区分都是：是否带target前缀，在CMake里面，一个target有自己的属性集，如果我们没有显示的设置这些target的属性的话，CMake默认是由相关的全局属性来填充target的属性，我们如果需要单独的设置target的属性，需要使用命令：set_target_properties()
 
-```
+```cmake
 set_target_properties(
     target1 
     target2 
@@ -171,7 +145,6 @@ set_target_properties(
     属性名称2 值 
     ... 
     )
-
 ```
 
 - 控制编译选项的属性是：COMPILE_FLAGS
@@ -184,7 +157,7 @@ set_target_properties(
 
 普通变量（normal variable）相当于编程中脚本内部变量，类似于脚本文件的局部变量，这种变量不能跨越CMakeLists.txt文档。普通变量定义方式如下：
 
-```
+```cmake
 set(var "value")
 ```
 
@@ -238,7 +211,7 @@ CACHE作用如下：
 
 基本语法：
 
-```
+```cmake
 if(expression)    
     COMMAND1(ARGS ...)    
     COMMAND2(ARGS ...)    
@@ -282,7 +255,7 @@ endif(expression)
 
 
 
-```
+```cmake
 if(<condition>)
   <commands>
 elseif(<condition>) # optional block, can be repeated
@@ -323,7 +296,7 @@ FOREACH有三种使用形式的语法，且每个FOREACH都需要一个ENDFOREAC
 
 - 语法：
 
-```
+```cmake
 FOREACH(loop_var arg1 arg2 ...) 
     COMMAND1(ARGS ...) 
     COMMAND2(ARGS ...) 
@@ -333,7 +306,7 @@ ENDFOREACH(loop_var)
 
 - 例子：
 
-  ```
+  ```cmake
   AUX_SOURCE_DIRECTORY(.SRC_LIST)
   FOREACH(F ${SRC_LIST}) 
     MESSAGE(${F})
@@ -346,7 +319,7 @@ ENDFOREACH(loop_var)
 
 - 语法：
 
-```
+```cmake
 FOREACH(loop_var RANGE total) 
     COMMAND1(ARGS ...) 
     COMMAND2(ARGS ...)
@@ -356,7 +329,7 @@ ENDFOREACH(loop_var)
 
 - 例子：
 
-```
+```cmake
 FOREACH(VAR RANGE 100)
     MESSAGE(${VAR})
 ENDFOREACH(VAR)
@@ -368,7 +341,7 @@ ENDFOREACH(VAR)
 
 - 语法:
 
-```
+```cmake
 FOREACH(loop_var RANGE start stop [step]) 
     COMMAND1(ARGS ...) 
     COMMAND2(ARGS ...)
@@ -378,7 +351,7 @@ ENDFOREACH(loop_var)
 
 - 例子：
 
-```
+```cmake
 FOREACH(A RANGE 0 100 10)
     MESSAGE(${A})
 ENDFOREACH(A)
@@ -398,7 +371,7 @@ ENDFOREACH(A)
 
 指令格式：
 
-```
+```cmake
 target_include_directories(
     <target> 
     [SYSTEM] 
@@ -419,7 +392,7 @@ target_compile_definitions(
 
 target_compile_options( [BEFORE] <INTERFACE|PUBLIC|PRIVATE> [items1...] [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...] )
 
-```
+```cmake
     gcc其它的一些编译选项，比如-fPIC,-fPIC作用于编译阶段，告诉编译器产生与位置无关代码Position-Independent Code)，则产生的代码中，没有绝对地址，全部使用相对地址，故而代码可以被加载器加载到内存的任意位置，都可以正确的执行。这正是共享库所要求的，共享库被加载时，在内存的位置不是固定的。
 
 以上的额三个命令会生成
@@ -461,7 +434,7 @@ endmacro()
 
 语法：
 
-```
+```cmake
 configure_file(
     <input> <output> 
     [COPYONLY] 
@@ -499,7 +472,7 @@ configure_file(
 
 CMakeLists.txt中可以使用`execute_process` 来运行系统中的程序。
 
-```
+```cmake
 execute_process(
     [COMMAND <cmd1> [args1...]] 
     [COMMAND <cmd2> [args2...] [...]] 
@@ -530,7 +503,7 @@ execute_process(
 
 使用示例:
 
-```
+```cmake
 set(MAKE_CMD "/src/bin/make.bat")
 MESSAGE("COMMAND: ${MAKE_CMD}")
 execute_process(
@@ -553,7 +526,7 @@ MESSAGE(
 
 
 
-# CMake编译中target_link_libraries中属性PRIVATE、PUBLIC、INTERFACE含义
+## CMake编译中target_link_libraries中属性PRIVATE、PUBLIC、INTERFACE含义
 
 当创建动态库时，
 
@@ -561,19 +534,16 @@ MESSAGE(
 - 如果源文件和头文件中都包含该第三方文件头，采用PUBLIC。
 - 如果头文件中包含该第三方文件头，但是源文件(例如CPP)中不包含，采用 **INTERFACE**。
 
-**原文：CMake target_link_libraries Interface Dependencies**
-
-http://stackoverflow.com/questions/26037954/cmake-target-link-libraries-interface-dependencies
-
-其他属性可以参考http://www.cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#transitive-usage-requirements
-
-
-
+> **原文：CMake target_link_libraries Interface Dependencies**
+>
+> http://stackoverflow.com/questions/26037954/cmake-target-link-libraries-interface-dependencies
+>
+> 其他属性可以参考http://www.cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#transitive-usage-requirements
+>
 
 
 
-
-### 13.1 C++11功能的激活
+### C++11功能的激活
 
 使用`target_compile_features(<target> <PRIVATE|PUBLIC|INTERFACE> <feature> [...])`
 
@@ -583,7 +553,7 @@ http://stackoverflow.com/questions/26037954/cmake-target-link-libraries-interfac
 
 也可以使用下面的方式来进行支持：
 
-```
+```cmake
 #设置c++标准级别
 
 set(CMAKE_CXX_STANDARD 11)
@@ -593,9 +563,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #(可选)确保-std=c++11
 ```
 
-### 13.2 中间过程优化
+### 中间过程优化
 
-```
+```cmake
 #检测编译器是否支持过程间优化
 
 check_ipo_supported(RESULT result)
@@ -608,7 +578,7 @@ if(result)
 endif()
 ```
 
-### 13.3 cmake中的option
+### cmake中的option
 
 option命令可以设置默认值；例如`option(address "this is path for value" ON)`设置address的默认值为ON，并且添加注释提示。
 
@@ -618,16 +588,14 @@ option命令可以设置默认值；例如`option(address "this is path for valu
 
 可以使用`cmake_dependent_option`设置存在依赖的option ,但是一般建议使用if判断来进行配置。
 
-```
+```cmake
 cmake_dependent_option(DEPENT_USE_CURL "this is dependent on USE_CURL" ON "USE_CURL;NOT USE_MATH" OFF)
-
-
 #设置一个option：DEPENT_USE_CURL,第二个参数是他的说明，ON后面的参数是一个表达式，当“USE_CURL”且“USE_MATH”为真的时候，DEPENT_USE_CURL取ON，为假取OFF
 ```
 
-### 13.4 属性调试模块(CMakePrintHelpers)
+### 属性调试模块(CMakePrintHelpers)
 
-```
+```cmake
 CMAKE_PRINT_PROPERTIES(
     [TARGETS target1 .. targetN]
     [SOURCES source1 .. sourceN]
@@ -640,7 +608,7 @@ CMAKE_PRINT_PROPERTIES(
 
 如果要检查foo目标的INTERFACE_INCLUDE_DIRS和LOCATION的值，则执行：
 
-```
+```cmake
 cmake_print_properties(
     TARGETS foo 
     PROPERTIES 
@@ -651,20 +619,18 @@ cmake_print_properties(
 
 
 
-
-
 ## 安装和测试
 
 下一步我们将为我们的工程添加安装规则和测试.安装规则相当简单,为了安装MathFunctions库和头文件,我们需要在MathFunctions文件夹的CMakeLists.txt文件中,添加如下内容:
 
-```
+```cmake
 install (TARGETS MathFunctions DESTINATION bin)
 install (FILES MathFunctions.h DESTINATION include)
 ```
 
 对于应用程序,需要在最顶层的CMakeLists.txt文件中安装可执行程序和配置头文件.
 
-```
+```cmake
 # add the install targets
 install (TARGETS Tutorial DESTINATION bin)
 install (FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"        
@@ -673,7 +639,7 @@ install (FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"
 
 **注意:上面这几行内容,需要添加在如下代码之后,否则编译会报错,提示找不到”Tutorial”**
 
-```
+```cmake
 # add the executable
 add_executable (Tutorial tutorial.cxx)
 target_link_libraries (Tutorial  ${EXTRA_LIBS})
@@ -681,7 +647,7 @@ target_link_libraries (Tutorial  ${EXTRA_LIBS})
 
 这就是所有要做的.到这里你应该可以构建这个教程了,然后输入”make install”(或则使用IDE编译出INSTALL目标),它将安装适当的头文件,库,和可执行程序.CMake变量”CMAKE_INSTALL_PREFIX”用来决定这些文件将被安装的根路径.添加测试也是很简单的.在顶层的CMakeLists.txt文件中添加一些简单的测试,来确认应用程序工作正常.
 
-```
+```cmake
 include(CTest)
 
 # does the application run
@@ -706,7 +672,7 @@ set_tests_properties (TutorialUsage PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*
 
 在构建完成之后需要运行”ctest”命令来运行上面的测试.第一个测试用例用来确保应用程序是否有段错误,crash,返回值非0.这个是一个简单的CTest测试.接下来的几个测试都是利用”PASS_REGULAR_EXPRESSION”测试属性来验证输出是否包含特定字符串.在这个例子当中验证平方根计算是否正确,以及当输入错误信息时候输出使用信息.如果你希望添加更多测试来测试不同的输入值,你可以考虑创建一个宏像如下这样:
 
-```
+```cmake
 #define a macro to simplify adding tests, then use it
 macro (do_test arg result)
   add_test (TutorialComp${arg} Tutorial ${arg})
@@ -727,7 +693,7 @@ do_test的每一次调用,就会有一次测试被添加到工程当中,测试�
 
 下一步让我们考虑添加一些代码到我们的工程,以支持目标平台没有的特性.在这个例子当中,我们将添加一些代码来验证目标平台是否具有log和exp函数.当然几乎所有的平台都有这些函数,教程假设一下这种少数情况.如果平台有log函数,那么我们在mysqrt函数中用它来计算输出.第一步我们利用CheckFunctionExists.cmake宏测试这些函数是否有效,在顶层CMakeLists.txt文件中添加如下内容:
 
-```
+```cmake
 # does this system provide the log and exp functions?
 include (CheckFunctionExists)
 check_function_exists (log HAVE_LOG)
@@ -736,7 +702,7 @@ check_function_exists (exp HAVE_EXP)
 
 接着我们修改”TutorialConfig.h.in”来定义那些CMake在平台上查找到的值,修改如下:
 
-```
+```cmake
 // does the platform provide exp and log functions?
 #cmakedefine HAVE_LOG
 #cmakedefine HAVE_EXP
@@ -744,7 +710,7 @@ check_function_exists (exp HAVE_EXP)
 
 在使用log和exp之前,确定他们是否被定义,是非常重要的.在CMake中,配置文件的命令会立刻使用目前的配置.最后在mysqrt函数中,我们可以提供一个基于log和exp函数的实现,代码如下:
 
-```
+```cmake
 // if we have both log and exp then use them
 #if defined (HAVE_LOG) && defined (HAVE_EXP)
   result = exp(log(x)*0.5);

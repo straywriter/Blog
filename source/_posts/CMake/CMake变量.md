@@ -2,24 +2,12 @@
 title: CMake变量
 top: false
 mathjax: true
-date: 2021-03-22 21:59:11
+date: 2021-01-11 21:59:11
 categories:
 - CMake
 ---
 
 -----
-
-
-
-
-
-
-
-## a 变量
-
-
-
-
 
 ## 基础变量
 
@@ -31,13 +19,67 @@ categories:
 set(var "value")
 ```
 
-设置一个普通变量var，值为value，引号的作用可以详见我的另一篇文章。
+设置一个普通变量var，值为value。
 
 和编程语言中局部变量的用法类似，这个变量会屏蔽CMake缓存中的同名变量，（类似局部变量屏蔽全局变量）。但是这条语句不会改变缓存中的var变量。
 
-
-
 当使用include()直接进行.cmake文件的引入时，可以实现变量的通用引用。
+
+-----
+
+**在CMake中定义和使用变量时，可以使用引号也可以不使用引号，并且它们会产生不同的结果。**
+
+**定义变量时使用引号**
+
+```cmake
+set(TITLE learn cmake quotes!)
+message(${TITLE})
+输出：
+learncmakequotes!
+```
+
+当我们不用引号定义变量的时候，相当于我们定义了一个包含多个成员的字符串数组，当使用message输出的时候，其实是挨着输出了这5个元素，结果就是learncmakequotes!了。我们也可以用foreach验证下这个结果：
+
+```cmake
+foreach(e ${TITLE})
+    message(${e})
+endforeach()
+```
+
+**使用变量时使用引号**
+
+对于例1中`${TITLE}`变量，如果使用引号，也会有不同的结果
+
+```cmake
+message("${TITLE}")
+输出：
+learn;cmake;quotes!
+```
+
+- 此时{TITLE}还是一个数组，我们用`"${TITLE}"`这种形式的时候，表示要让CMake把这个数组的所有值当成一个整体，而不是分散的个体。
+- 于是，为了保持数组的含义，又提供一个整体的表达方式，CMake就会用;把这数组的多个值连接起来。
+- 无论是在CMake还是Shell里，用分号分割的字符串，形式上是一个字符串，但把它当成命令执行，就会被解析成多个用分号分割的部分。
+- 对于单一的字符串变量(不包含特殊字符)，用不用引号，结果都是一样的。
+
+**定义变量时使用引号，使用的时候不用**
+
+当使用引号时，这个值就是普通的字符层，不再是数组了。
+
+```cmake
+set(TITLE "learn cmake quotes!")
+message(${TITLE})
+message("${TITLE}")
+输出：
+learn cmake quotes!
+learn cmake quotes!
+```
+
+**总结**
+
+- 引号对于CMake中变量的定义，其功能主要是当有空格的时候，区别变量时一个数组还是纯粹的字符串；
+- 在使用的时候，对于普通字符串，加不加引号没什么区别，而对于数组，加引号会将数组以分号间隔输出，而不加引号则是直接拼接数组。
+
+
 
 ### 缓存变量
 
@@ -69,550 +111,6 @@ CACHE作用如下：
 - 主要是缓存的字符串，只能是ON或OFF，他们允许一些特殊的处理，如依赖，这个变量可以跨文本。
 - 不要将其option与set命令搞错。给定的值option实际上只是“初始值”（在第一个配置步骤中一次传送到缓存），之后将由用户通过CMake的GUI或者命令行进行更改
 
-### 内置变量
-
-
-
-
-
-## list
-
-
-
-```cmake
-Reading
-  list(LENGTH <list> <out-var>)
-  list(GET <list> <element index> [<index> ...] <out-var>)
-  list(JOIN <list> <glue> <out-var>)
-  list(SUBLIST <list> <begin> <length> <out-var>)
-
-Search
-  list(FIND <list> <value> <out-var>)
-
-Modification
-  list(APPEND <list> [<element>...])
-  list(FILTER <list> {INCLUDE | EXCLUDE} REGEX <regex>)
-  list(INSERT <list> <index> [<element>...])
-  list(POP_BACK <list> [<out-var>...])
-  list(POP_FRONT <list> [<out-var>...])
-  list(PREPEND <list> [<element>...])
-  list(REMOVE_ITEM <list> <value>...)
-  list(REMOVE_AT <list> <index>...)
-  list(REMOVE_DUPLICATES <list>)
-  list(TRANSFORM <list> <ACTION> [...])
-
-Ordering
-  list(REVERSE <list>)
-  list(SORT <list> [...])
-```
-
-
-
-### **LENGTH 获取list长度**
-
-```cmake
-list(LENGTH <list> <out-var>)
-```
-
-> `<output variable>`为新创建的变量，用于存储列表的长度。
-
-```cmake
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (LENGTH list_test length)
-message (">>> LENGTH: ${length}")
-```
-
-```
-# 输出
->>> LENGTH: 4
-```
-
-### **GET 读取列表中指定索引的的元素，可以指定多个索引。**
-
-```
-list(GET <list> <element index> [<index> ...] <out-var>)
-```
-
-> `<element index>`为列表元素的索引，从0开始编号，索引0的元素为列表中的第一个元素；索引也可以是负数，`-1`表示列表的最后一个元素，`-2`表示列表倒数第二个元素，以此类推。注意：当索引（不管是正还是负）超过列表的长度，运行会报错（`list index: XX out of range`）。
->   `<output variable>`为新创建的变量，存储指定索引元素的返回结果，也是一个列表。
-
-```
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (GET list_test 0 1 -1 -2 list_new)
-message (">>> GET: ${list_new}")
-```
-
-```
-# 输出
->>> GET: a;b;d;c
-```
-
-### **JOIN 用于将列表中的元素用连接字符串连接起来组成一个字符串**
-
-- 注意，此时返回的结果已经不是一个列表。
-
-```
-list(JOIN <list> <glue> <out-var>)
-```
-
-> 将列表中的元素用`<glue>`链接起来，组成一个字符串后，返回给`<output variable>`变量。对于不属于列表的多个字符串的连接操作，可以使用`string()`命令的连接操作。
-
-```cmake
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (JOIN list_test -G- list_new)
-message (">>> JOIN: ${list_new}")
-```
-
-```
-# 输出
->>> JOIN: a-G-b-G-c-G-d
-```
-
-### **SUBLIST 子命令SUBLIST用于获取列表中的一部分**
-
-```
-list(SUBLIST <list> <begin> <length> <out-var>)
-```
-
-> 返回列表`<list>`中，从索引`<begin>`开始，长度为`<length>`的子列表。如果长度`<length>`为0，返回的时空列表。如果长度`<length>`为-1或列表的长度小于`<begin>+<length>`，那么将列表中从`<begin>`索引开始的剩余元素返回。
-
-```cmake
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (SUBLIST list_test 1 2 list_new)
-message (">>> SUBLIST: ${list_new}")
-list (SUBLIST list_test 1 0 list_new)
-message (">>> SUBLIST: ${list_new}")
-list (SUBLIST list_test 1 -1 list_new)
-message (">>> SUBLIST: ${list_new}")
-list (SUBLIST list_test 1 8 list_new)
-message (">>> SUBLIST: ${list_new}")
-```
-
-```
-# 输出
->>> SUBLIST: b;c
->>> SUBLIST:
->>> SUBLIST: b;c;d
->>> SUBLIST: b;c;d
-```
-
-### FIND 查找列表是否存在指定的元素
-
-```
-list(FIND <list> <value> <out-var>)
-```
-
-> 如果列表`<list>`中存在`<value>`，那么返回`<value>`在列表中的索引，如果未找到则返回-1。
-
-```
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (FIND list_test d list_index)
-message (">>> FIND 'd': ${list_index}")
-list (FIND list_test e list_index)
-message (">>> FIND 'e': ${list_index}")
-```
-
-```
-# 输出
->>> FIND 'd': 3
->>> FIND 'e': -1
-```
-
-
-
-### APPEND 将元素追加到列表
-
-```
-list(APPEND <list> [<element>...])
-```
-
-> 此命令会改变原列表的值。
-
-```
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (APPEND list_test 1 2 3 4)
-message (">>> APPEND: ${list_test}")
-```
-
-```
-# 输出
->>> APPEND: a;b;c;d;1;2;3;4
-```
-
-
-
-### FILTER 用于根据正则表达式包含或排除列表中的元素
-
-```
-list(FILTER <list> {INCLUDE | EXCLUDE} REGEX <regex>)
-```
-
-> 根据模式的匹配结果，将元素添加（`INCLUDE`选项）到列表或者从列表中排除（`EXCLUDE`选项）。此命令会改变原来列表的值。模式`REGEX`表明会对列表进行正则表达式匹配。（从官方文档目前未找到其他模式）
-
-```cmake
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d 1 2 3 4) # 创建列表变量"a;b;c;d;1;2;3;4"
-message (">>> the LIST is: ${list_test}")
-list (FILTER list_test INCLUDE REGEX [a-z])
-message (">>> FILTER: ${list_test}")
-list (FILTER list_test EXCLUDE REGEX [a-z])
-message (">>> FILTER: ${list_test}")
-```
-
-```
-# 输出
->>> the LIST is: a;b;c;d;1;2;3;4
->>> FILTER: a;b;c;d
->>> FILTER: 
-```
-
-### INSERT 在指定位置将元素（一个或多个）插入到列表中
-
-```
-list(INSERT <list> <index> [<element>...])
-```
-
-> `<element_index>`为列表指定的位置，如果元素的位置超出列表的范围，会报错。此命令会改变原来列表的值。
-
-```
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (INSERT list_test 0 8 8 8 8)
-message (">>> INSERT: ${list_test}")
-list (INSERT list_test -1 9 9 9 9)
-message (">>> INSERT: ${list_test}")
-list (LENGTH list_test lenght)
-list (INSERT list_test ${length} 0)
-message (">>> INSERT: ${list_test}")
-```
-
-```
-# 输出
->>> INSERT: 8;8;8;8;a;b;c;d
->>> INSERT: 8;8;8;8;a;b;c;9;9;9;9;d
->>> INSERT: 8;8;8;8;a;b;c;9;9;9;9;d;0
-```
-
-
-
-### POP_BACK 将列表中最后元素移除
-
-```
-list(POP_BACK <list> [<out-var>...])
-```
-
-> `<out-var>`如果未指定输出变量，则仅仅是将原列表的最后一个元素移除。如果指定了输出变量，则会将最后一个元素移入到该变量，并将元素从原列表中移除。如果指定了多个输出变量，则依次将原列的最后一个元素移入到输出变量中，如果输出变量个数大于列表的长度，那么超出部分的输出变量未定义。
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (POP_BACK list_test)
-message (">>> POP_BACK: ${list_test}")
-list (POP_BACK list_test outvar1 outvar2 outvar3 outvar4)
-message (">>> POP_BACK: ${outvar1}、${outvar2}、${outvar3}、${outvar4}")
-```
-
-```ruby
-# 输出
->>> POP_BACK: a;b;c
->>> POP_BACK: c、b、a、
-```
-
-### POP_FRONT  列表中第一个元素移除
-
-```
-list(POP_FRONT <list> [<out-var>...])
-```
-
-> `<out-var>`如果未指定输出变量，则仅仅是将原列表的第一个元素移除。如果指定了输出变量，则会将第一个元素移入到该变量，并将元素从原列表中移除。如果指定了多个输出变量，则依次将原列的第一个元素移入到输出变量中，如果输出变量个数大于列表的长度，那么超出部分的输出变量未定义。
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (POP_FRONT list_test)
-message (">>> POP_FRONT: ${list_test}")
-list (POP_FRONT list_test outvar1 outvar2 outvar3 outvar4)
-message (">>> POP_FRONT: ${outvar1}、${outvar2}、${outvar3}、${outvar4}")
-```
-
-```ruby
-# 输出
->>> POP_FRONT: b;c;d
->>> POP_FRONT: b、c、d、
-```
-
-### PREPEND 将元素插入到列表的0索引位置
-
-```
-list(PREPEND <list> [<element>...])
-```
-
-> 如果待插入的元素是多个，则相当于把多个元素整体“平移”到原列表0索引的位置。
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d) # 创建列表变量"a;b;c;d"
-list (PREPEND list_test z)
-message (">>> PREPEND: ${list_test}")
-list (PREPEND list_test p q r s t)
-message (">>> POP_FRONT: ${list_test}")
-```
-
-```ruby
-# 输出
->>> PREPEND: z;a;b;c;d
->>> PREPEND: p;q;r;s;t;z;a;b;c;d
-```
-
-### REMOVE_ITEM 将指定的元素从列表中移除
-
-```
-list(REMOVE_ITEM <list> <value>...)
-```
-
-> 注意：指定的是元素的值，当指定的值在列表中存在重复的时候，会删除所有重复的值。
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a a b c c d) # 创建列表变量"a;a;b;c;c;d"
-list (REMOVE_ITEM list_test a)
-message (">>> REMOVE_ITEM: ${list_test}")
-list (REMOVE_ITEM list_test b e)
-message (">>> REMOVE_ITEM: ${list_test}")
-```
-
-
-
-```ruby
-# 输出
->>> REMOVE_ITEM: b;c;c;d
->>> REMOVE_ITEM: c;c;d
-```
-
-### REMOVE_AT 将指定索引的元素从列表中移除
-
-```
-list(REMOVE_AT <list> <index>...)
-```
-
-> 注意：指定的是元素的索引，当指定的索引不存在的时候，会提示错误；如果指定的索引存在重复，则只会执行一次删除动作。
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d e f) # 创建列表变量"a;b;c;d;e;f"
-list (REMOVE_AT list_test 0 -1)
-message (">>> REMOVE_AT: ${list_test}")
-list (REMOVE_AT list_test 1 1 1 1)
-message (">>> REMOVE_AT: ${list_test}")
-```
-
-
-
-```ruby
-# 输出
->>> REMOVE_AT: b;c;d;e
->>> REMOVE_AT: b;d;e
-```
-
-### REMOVE_DUPLICATES
-
-```
-list(REMOVE_DUPLICATES <list>)
-```
-
-> 移除列表中的重复元素
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a a a b b b c c c d d d) # 创建列表变量"a;a;a;b;b;b;c;c;c;d;d;d;"
-list (REMOVE_DUPLICATES list_test)
-message (">>> REMOVE_DUPLICATES: ${list_test}")
-set (list_test a a a a) 
-list (REMOVE_DUPLICATES list_test)
-message (">>> REMOVE_DUPLICATES: ${list_test}")
-set (list_test a b c a d a e a f)  # 多个元素重复，只保留第一个 
-list (REMOVE_DUPLICATES list_test)
-message (">>> REMOVE_DUPLICATES: ${list_test}")
-```
-
-```ruby
-# 输出
->>> REMOVE_DUPLICATES: a;b;c;d
->>> REMOVE_DUPLICATES: a
->>> REMOVE_DUPLICATES: a;b;c;d;e;f
-```
-
-### TRANSFORM  将指定的动作运用到所有或者部分指定的元素，结果可以存到原列表中，或存到指定输出新的变量中。
-
-```
-list(TRANSFORM <list> <ACTION> [...])
-```
-
-> 选项`ACTION`用于指定应用到列表元素的动作，动作必须在如下中选择一个：`APPEND`/`PREPEND`/`TOUPPER`/`TOUPPER`/`STRIP`/`GENEX_STRIP`/`REPLACE`；选项`SELECTOR`用于指定哪些列表元素会被选择，并执行动作，`SELECTOR`只能从如下中选择一个：`AT`/`FOR`/`REGEX`；选项`OUTPUT_VARIABLE`用于指定新的输出变量。  `TRANSFORM`命令不会改变列表中元素的个数。
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test a b c d)
-list (TRANSFORM list_test APPEND B OUTPUT_VARIABLE list_test_out)
-list (TRANSFORM list_test APPEND B)
-message (">>> TRANSFORM-APPEND: ${list_test} --- ${list_test_out}")
-set (list_test a b c d)
-list (TRANSFORM list_test PREPEND F OUTPUT_VARIABLE list_test_out)
-list (TRANSFORM list_test PREPEND F)
-message (">>> TRANSFORM-PREPEND: ${list_test} --- ${list_test_out}")
-```
-
-```ruby
-# 输出
->>> TRANSFORM-APPEND: aB;bB;cB;dB --- aB;bB;cB;dB
->>> TRANSFORM-PREPEND: Fa;Fb;Fc;Fd --- Fa;Fb;Fc;Fd
-```
-
-### REVERSE 将整个列表反转
-
-```
-list(REVERSE <list>)
-```
-
-> 反转列表。
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test aa bb cc dd) 
-message (">>> list: ${list_test}")
-list (REVERSE list_test)
-message (">>> REVERSE: ${list_test}")
-```
-
-```ruby
-# 输出
->>> list: aa;bb;cc;dd
->>> REVERSE: dd;cc;bb;aa
-```
-
-### SORT 对列表进行排序
-
-```
-list (SORT <list> [COMPARE <compare>] [CASE <case>] [ORDER <order>])
-```
-
-> **`COMPARE`**：指定排序方法。有如下几种值可选：1）`STRING`:按照字母顺序进行排序，为默认的排序方法；2）`FILE_BASENAME`：如果是一系列路径名，会使用basename进行排序；3）`NATURAL`：使用自然数顺序排序。
->
-> **`CASE`**：指明是否大小写敏感。有如下几种值可选：1）`SENSITIVE`:按照大小写敏感的方式进行排序，为默认值；2）`INSENSITIVE`：按照大小写不敏感方式进行排序。
->
-> **`ORDER`**：指明排序的顺序。有如下几种值可选：1）`ASCENDING`:按照升序排列，为默认值；2）`DESCENDING`：按照降序排列。
-
-```bash
-# CMakeLists.txt
-cmake_minimum_required (VERSION 3.12.2)
-project (list_cmd_test)
-set (list_test 3 1 1.1 10.1 3.4 9)
-list (SORT list_test) # 以字母顺序，按照大小写不敏感方式，升序排列
-message (">>> SORT STRING-SENSITIVE-ASCENDING: ${list_test}")
-list (SORT list_test COMPARE NATURAL ORDER DESCENDING) # 以自然顺序，降序排列
-message (">>> SORT STRING-SENSITIVE-DESCENDING: ${list_test}")
-```
-
-```css
-# 输出
->>> SORT STRING-SENSITIVE-ASCENDING: 1;1.1;10.1;3;3.4;9
->>> SORT STRING-SENSITIVE-DESCENDING: 10.1;9;3.4;3;1.1;1
-```
-
-## string
-
-```
-Search and Replace
-  string(FIND <string> <substring> <out-var> [...])
-  string(REPLACE <match-string> <replace-string> <out-var> <input>...)
-  string(REGEX MATCH <match-regex> <out-var> <input>...)
-  string(REGEX MATCHALL <match-regex> <out-var> <input>...)
-  string(REGEX REPLACE <match-regex> <replace-expr> <out-var> <input>...)
-
-Manipulation
-  string(APPEND <string-var> [<input>...])
-  string(PREPEND <string-var> [<input>...])
-  string(CONCAT <out-var> [<input>...])
-  string(JOIN <glue> <out-var> [<input>...])
-  string(TOLOWER <string> <out-var>)
-  string(TOUPPER <string> <out-var>)
-  string(LENGTH <string> <out-var>)
-  string(SUBSTRING <string> <begin> <length> <out-var>)
-  string(STRIP <string> <out-var>)
-  string(GENEX_STRIP <string> <out-var>)
-  string(REPEAT <string> <count> <out-var>)
-
-Comparison
-  string(COMPARE <op> <string1> <string2> <out-var>)
-
-Hashing
-  string(<HASH> <out-var> <input>)
-
-Generation
-  string(ASCII <number>... <out-var>)
-  string(HEX <string> <out-var>)
-  string(CONFIGURE <string> <out-var> [...])
-  string(MAKE_C_IDENTIFIER <string> <out-var>)
-  string(RANDOM [<option>...] <out-var>)
-  string(TIMESTAMP <out-var> [<format string>] [UTC])
-  string(UUID <out-var> ...)
-
-JSON
-  string(JSON <out-var> [ERROR_VARIABLE <error-var>]
-         {GET | TYPE | LENGTH | REMOVE}
-         <json-string> <member|index> [<member|index> ...])
-  string(JSON <out-var> [ERROR_VARIABLE <error-var>]
-         MEMBER <json-string>
-         [<member|index> ...] <index>)
-  string(JSON <out-var> [ERROR_VARIABLE <error-var>]
-         SET <json-string>
-         <member|index> [<member|index> ...] <value>)
-  string(JSON <out-var> [ERROR_VARIABLE <error-var>]
-         EQUAL <json-string1> <json-string2>)
-```
-
-
-
-
-
 
 
 ## 相关参考
@@ -624,3 +122,7 @@ JSON
 [cmake string](https://cmake.org/cmake/help/latest/command/string.html)
 
 [cmake string 测试](https://github.com/Kitware/CMake/blob/master/Tests/StringFileTest/CMakeLists.txt)
+
+[CMake中变量总结 | 拾荒志 (murphypei.github.io)](https://murphypei.github.io/blog/2018/10/cmake-variable)
+
+[CMake中引号用法总结 | 拾荒志 (murphypei.github.io)](https://murphypei.github.io/blog/2018/10/cmake-quotes)

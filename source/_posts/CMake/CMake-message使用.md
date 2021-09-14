@@ -2,14 +2,12 @@
 title: CMake message 用法
 top: false
 mathjax: true
-date: 2020-04-08 21:59:11
+date: 2020-09-01 21:59:11
 categories:
 - CMake
 ---
 
 -----
-
-
 
 ## 语法
 
@@ -52,7 +50,6 @@ message(FATAL_ERROR "
 FATAL: In-source builds are not allowed.
        You should create a separate directory for build files.
 ")
-
 ```
 
 2.输出警告 WARNING
@@ -79,16 +76,6 @@ MESSAGE( STATUS "this var key = ${USER_KEY}.")
 ## 报告检查
 
 CMake 输出中的一个常见模式是指示某种检查开始的消息，然后是报告该检查结果的另一条消息。
-
-
-
-
-
-
-
-
-
-
 
 ## 相关参考
 

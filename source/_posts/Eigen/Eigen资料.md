@@ -18,6 +18,12 @@ categories:
 
 
 
+
+
+
+
+## 优秀文章
+
 [Eigen库的使用技巧(三) (aintk.xyz)](https://www.aintk.xyz/post/2018-09-18-eigenusage3/)
 
 

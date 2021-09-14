@@ -1,5 +1,5 @@
 ---
-title: CMake在vs中创建文件夹组织目标工程
+title: CMake target_compile_options使用
 top: false
 mathjax: true
 date: 2021-02-22 21:59:11
@@ -9,25 +9,7 @@ categories:
 
 -----
 
-
-
-
-
-# a
-
-
-
-
-
-
-
 ## 示例
-
-
-
-
-
-
 
 ```cmake
 target_compile_options(mylib PRIVATE   -O2) # only internal
@@ -51,7 +33,7 @@ add_definitions(-DUSEXX)           # OK
 
 In you case you can use:
 
-```cpp
+```cmake
 target_compile_options(${TARGET} PRIVATE
           $<$<COMPILE_LANGUAGE:CXX>:${BUILD_FLAGS_FOR_CXX}>
           $<$<COMPILE_LANGUAGE:C>:${BUILD_FLAGS_FOR_C}>)
@@ -59,7 +41,7 @@ target_compile_options(${TARGET} PRIVATE
 
 or about compilers:
 
-```cpp
+```cmake
 target_compile_options(${TARGET} PRIVATE
           $<$<CXX_COMPILER_ID:Clang>:${BUILD_FLAGS_FOR_CLANG}>
           $<$<CXX_COMPILER_ID:GNU>:${BUILD_FLAGS_FOR_GCC}>

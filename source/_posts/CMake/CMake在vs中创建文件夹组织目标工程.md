@@ -23,7 +23,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeTargets")
 ```
 
-![image-20210408110212455](CMake在vs中创建文件夹组织目标工程/image-20210408110212455.png)
+![](CMake在vs中创建文件夹组织目标工程/image-20210408110212455.png)
 
 **把工程加到文件夹中**
 
@@ -31,4 +31,4 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeTargets")
 set_target_properties(prj PROPERTIES FOLDER "folder")
 ```
 
-![image-20210408110240078](CMake在vs中创建文件夹组织目标工程/image-20210408110240078.png)
+![](CMake在vs中创建文件夹组织目标工程/image-20210408110240078.png)

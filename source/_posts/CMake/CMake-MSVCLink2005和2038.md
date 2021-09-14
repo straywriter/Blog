@@ -2,24 +2,17 @@
 title: CMake 解决MSVC RuntimeLibrary问题
 top: false
 mathjax: true
-date: 2021-02-22 21:59:11
+date: 2021-05-27 21:59:11
 categories:
 - CMake
 ---
 
 -----
 
-
-
-
-
 **问题描述**
-
-使用googletest时产生的错误
 
 > error LNK2038: 检测到“RuntimeLibrary”的不匹配项: 值“MTd_StaticDebug”不匹配值“MDd_DynamicDebug”
 >
-> error LNK2005: "public: __cdecl std::_Lockit::~_Lockit(void)" (??1_Lockit@std@@QEAA@XZ) 已经在 msvcprtd.lib(MSVCP140D.dll) 中定义
 
 ## 方案一 全局方法
 

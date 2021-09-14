@@ -8,57 +8,10 @@ categories:
 
 -----
 
-
-
-------
-
-
-
-
-
------
-
-
-
 > 注：该版本为我自己修改和整理的版本，仅用于学习和交流。
 >
-> 原文地址：[CppCoreGuidelines-zh-CN/CppCoreGuidelines-zh-CN.md at master · lynnboy/CppCoreGuidelines-zh-CN (github.com)](https://github.com/lynnboy/CppCoreGuidelines-zh-CN/blob/master/CppCoreGuidelines-zh-CN.md)
 
-
-
-
-
-# <a name="main"></a>C++ 核心指导方针
-
-2021/3/11
-
-
-编辑：
-
-* [Bjarne Stroustrup](http://www.stroustrup.com)
-* [Herb Sutter](http://herbsutter.com/)
-
-翻译
-
-* 李一楠 (li_yinan AT 163 DOT com)
-
-本文档是处于持续改进之中的在线文档。
-本文档作为开源项目，发布版本为 0.8。
-复制，使用，修改，以及创建本项目的衍生物，受到一份 MIT 风格的版权授权。
-向本项目作出贡献需要同意一份贡献者授权。详情参见附属的 [LICENSE](LICENSE) 文件。
-我们将本项目开放给“友好用户”进行使用，复制，修改，以及生产衍生物，并希望能够获得建设性的资源投入。
-
-十分欢迎大家提出意见和改进建议。
-随着我们的知识增长，随着语言和可用的程序库的改进，我们计划对这份文档不断进行修改和扩充。
-当提出您的意见时，请关注[导言](#S-introduction)部分，其中概述了我们的目标和所采用的一般方法。
-贡献者的列表请参见[这里](#SS-ack)。
-
-已知问题：
-
-* 仍未对规则集合的完整性、一致性和可强制实施性加以全面的检查。
-* 三问号 (???) 用于标记已知的信息缺失。
-* 需要更新参考部分；许多前 C++11 的源代码都过于老旧。
-* [To-do: 未分类的规则原型](#S-unclassified) 是一份基本上保持最新状态的 to-do 列表。
+# C++ 核心指导方针
 
 您可以[阅读本指南的范围和结构的说明](#S-abstract)，或者直接跳转到：
 
@@ -217,7 +170,7 @@ categories:
 * 后条件：???
 * 资源：???
 
-# <a name="S-abstract"></a>概要
+## 概要
 
 本文档是一组有关如何更好使用 C++ 的指导方针的集合。
 本文档的目标是帮助人们更有效地使用现代 C++。
@@ -256,7 +209,7 @@ categories:
 十分欢迎大家提出意见和改进建议。
 随着我们的知识增长，随着语言和可用的程序库的改进，我们计划对这份文档不断进行修改和扩充。
 
-# <a name="S-introduction"></a>In: 导言
+## 导言
 
 本文档是一组核心指导方针，针对现代 C++（C++17，C++14 和 C++11），还考虑到了语言将来有希望的增强，以及 ISO 技术规范（TSs）。
 其目标是帮助 C++ 程序员编写更简单、更高效、更加可维护的代码。
@@ -270,11 +223,11 @@ categories:
 * [In.struct: 本文档的结构](#SS-struct)
 * [In.sec: 主要章节](#SS-sec)
 
-## <a name="SS-readers"></a>In.target: 目标读者
+**目标读者**
 
 所有 C++ 程序员。其中也包括[考虑采用 C 语言的程序员](#S-cpl)。
 
-## <a name="SS-aims"></a>In.aims: 目标
+**目标**
 
 本文档的目标是帮助开发者采用现代 C++（目前是 C++17），并在各个代码库之间达成更加统一的编码风格。
 
@@ -283,7 +236,7 @@ categories:
 我们认为这些规则对新代码来说是理想的，也有很多机会在老代码中实施，并试图尽可能接近并灵活地对这些理想情况进行近似。
 请记住：
 
-### <a name="R0"></a>In.0: 不要慌张！
+**不要慌张！**
 
 请花些时间理解一下指南规则对你的程序能够造成的影响。
 
@@ -313,7 +266,7 @@ categories:
 目标是避免意外事故的指导方针通常会禁止完全合法的 C++ 用法。
 不管怎样，每当存在两种达成效果的方式，其中一种被证实是常见的错误来源，而另外一种并非如此时，我们都会努力引导程序员采纳后者。
 
-## <a name="SS-non"></a>In.not: 非目标
+**非目标**
 
 我们没打算让这些规则保持精简或正交。
 特别地说，一般性规则可以很简单，但却没办法强制实施。
@@ -363,7 +316,7 @@ categories:
 如果某条规则使你无法工作，你反对它，忽略掉它，但请不要削弱它，除非它已经变得没有意义。
 同样，也请给出改进的建议。
 
-## <a name="SS-force"></a>In.force: 强制实施
+**强制实施**
 
 无法强制实施的规则对于大型代码库来说是难以操作的。
 所有规则都强制实施，则仅对于一个小的规则集合，或者对于某些特定用户群来说是可行的。
@@ -414,7 +367,7 @@ categories:
 
 * `"message"` 是字符串字面量
 
-## <a name="SS-struct"></a>In.struct: 本文档的结构
+**本文档的结构**
 
 每条规则（指导方针，建议）可以包含几个部分：
 
@@ -453,47 +406,9 @@ categories:
 它旨在能够对人有所帮助，而不是变得完整，在技术细节上完全准确，或对现存代码的指南。
 可以在[参考资料](#S-references)中找到一些推荐的信息来源。
 
-## <a name="SS-sec"></a>In.sec: 主章节
 
-* [In: 导言](#S-introduction)
-* [P: 理念](#S-philosophy)
-* [I: 接口](#S-interfaces)
-* [F: 函数](#S-functions)
-* [C: 类和类层次](#S-class)
-* [Enum: 枚举](#S-enum)
-* [R: 资源管理](#S-resource)
-* [ES: 表达式和语句](#S-expr)
-* [Per: 性能](#S-performance)
-* [CP: 并发与并行](#S-concurrency)
-* [E: 错误处理](#S-errors)
-* [Con: 常量和不可变性](#S-const)
-* [T: 模板和泛型编程](#S-templates)
-* [CPL: C 风格的编程](#S-cpl)
-* [SF: 源文件](#S-source)
-* [SL: 标准库](#S-stdlib)
 
-配套章节：
-
-* [A: 架构相关的理念](#S-A)
-* [NR: 伪规则和错误的看法](#S-not)
-* [RF: 参考资料](#S-references)
-* [Pro: 剖面配置](#S-profile)
-* [GSL: 指导方针支持库](#S-gsl)
-* [NL: 命名和代码布局](#S-naming)
-* [FAQ: 常见问题的解答](#S-faq)
-* [附录 A: 程序库](#S-libraries)
-* [附录 B: 代码的现代化转换](#S-modernizing)
-* [附录 C: 相关讨论](#S-discussion)
-* [附录 D: 支持工具](#S-tools)
-* [词汇表](#S-glossary)
-* [To-do: 未分类的规则原型](#S-unclassified)
-
-章节之间并非是正交的。
-
-每个章节（比如，"P" 代表“理念”），以及每个子章节（比如，"C.hier" 代表“类层次（OOP）”）都有一个用以简化搜索和引用的缩写。
-主章节的缩写也出现在规则编号之中（比如，"C.11" 代表“使具体类型正规化”）。
-
-# <a name="S-philosophy"></a>P: 理念
+## 理念
 
 本章节中的规则都非常具有一般性。
 
@@ -517,56 +432,62 @@ categories:
 不过，这些理念主题在各个规则中都有体现。
 如果没有一个理念基础的话，那些更具体、专门和可检查的规则就是缺少理论根据的了。
 
-### <a name="Rp-direct"></a>P.1: 在代码中直接表达你的想法
+### 在代码中直接表达你的想法
 
-##### 理由
+**理由**
 
 编译器是不会去读注释（或设计文档）的，许多程序员也（固执地）不去读它们。
 而代码中所表达的东西是带有明确的语义的，并且（原则上）是可以由编译器和其他工具进行检验的。
 
-##### 示例
+**示例**
 
-    class Date {
-    public:
-        Month month() const;  // 好
-        int month();          // 不好
-        // ...
-    };
+```cpp
+class Date {
+public:
+    Month month() const;  // 好
+    int month();          // 不好
+    // ...
+};
+```
 
 `month` 的第一个声明式，显然是要返回一个 `Month`，而且不会修改 `Date` 对象的状态。
 而第二个版本则需要读者进行猜测，同时带来了更多的出现难于发现 BUG 的可能性。
 
-##### 示例，不好
+**示例，不好**
 
 这个循环是 `std::find` 的一种能力有限的形式：
 
-    void f(vector<string>& v)
-    {
-        string val;
-        cin >> val;
-        // ...
-        int index = -1;                    // 不好，而且应该使用 gsl::index
-        for (int i = 0; i < v.size(); ++i) {
-            if (v[i] == val) {
-                index = i;
-                break;
-            }
+```cpp
+void f(vector<string>& v)
+{
+    string val;
+    cin >> val;
+    // ...
+    int index = -1;                    // 不好，而且应该使用 gsl::index
+    for (int i = 0; i < v.size(); ++i) {
+        if (v[i] == val) {
+            index = i;
+            break;
         }
-        // ...
     }
+    // ...
+}
+```
 
-##### 示例，好
+**示例，好**
 
 要清晰得多地表达其设计意图，可以这样：
 
-    void f(vector<string>& v)
-    {
-        string val;
-        cin >> val;
-        // ...
-        auto p = find(begin(v), end(v), val);  // 好多了
-        // ...
-    }
+```cpp
+void f(vector<string>& v)
+{
+    string val;
+    cin >> val;
+    // ...
+    auto p = find(begin(v), end(v), val);  // 好多了
+    // ...
+}
+```
 
 用恰当设计的程序库来表达设计意图（要做什么，而不只是怎么做这些事），要远比直接使用语言功能好得多。
 
@@ -574,23 +495,27 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 任何程序员都应当熟知其所工作的项目中的基础程序库的基本知识，并适当加以利用。
 使用本文档的指导方针的程序员，应当熟知[指导方针支持库](#S-gsl)，并适当加以利用。
 
-##### 示例
+**示例**
 
-    change_speed(double s);   // bad: s 代表什么？
-    // ...
-    change_speed(2.3);
+```cpp
+change_speed(double s);   // bad: s 代表什么？
+// ...
+change_speed(2.3);
+```
 
 更好的方案是明确给出这个 double 的含义（新的速度还是对旧速度的增量？）以及所用单位：
 
-    change_speed(Speed s);    // 好多了：说明了 s 的含义
-    // ...
-    change_speed(2.3);        // 错误：没有单位
-    change_speed(23m / 10s);  // 米每秒
+```cpp
+change_speed(Speed s);    // 好多了：说明了 s 的含义
+// ...
+change_speed(2.3);        // 错误：没有单位
+change_speed(23m / 10s);  // 米每秒
+```
 
 确实可以用普通的（没有单位的）`double` 作为增量值，但这样是易于出错的。
 如果绝对速度值和增量值都需要的话，我们应当定义一个 `Delta` 类型。
 
-##### 强制实施
+**强制实施**
 
 通常非常困难。
 
@@ -598,13 +523,13 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 将强制转换标示出来（强制转换阉割了类型系统）
 * 检测模仿标准库的代码（困难）
 
-### <a name="Rp-Cplusplus"></a>P.2: 用 ISO 标准 C++ 来编码
+### 用 ISO 标准 C++ 来编码
 
-##### 理由
+**理由**
 
 本文档正是关于用 ISO 标准 C++ 来编码的一组指导方针。
 
-##### 注解
+**注解**
 
 有些环境下是需要使用语言扩展的，例如有关访问系统资源的语言扩展。
 这些情况下，应当将对所需语言扩展的使用局部化，并把它们的使用置于非核心的编码指导方针的控制之下。如果可能的话，应当构建一些接口来封装这些语言扩展，以使其能够被关闭，并当针对不支持这些语言扩展的系统时免除它们的编译。
@@ -615,49 +540,57 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 直接后果。大量使用任何这样的语言扩展，都会对代码的可移植性
 造成不良影响。
 
-##### 注解
+**注解**
 
 使用合法的 C++ 并不能保证可移植性（不管其正确性）。
 应当避免依赖于未定义的行为（例如，[未定义的求值顺序](#Res-order)）
 并应当关注带有由实现定义的含义的构造（例如，`sizeof(int)`）。
 
-##### 注解
+**注解**
 
 有些环境下是需要对标准 C++ 语言或者程序库的功能特性的使用进行限制的，例如，飞行器控制软件标准要求避免动态内存分配。
 这些情况下，应当将对它们的使用（或废弃）置于对本文档针对特定环境所定制的扩充的编码指导方针之下。
 
-##### 强制实施
+**强制实施**
 
 使用最新版的 C++ 编译器（当前支持 C++17，C++14 或 C++11），并打开禁用语言扩展的选项。
 
-### <a name="Rp-what"></a>P.3: 表达你的设计意图
+### 表达你的设计意图
 
-##### 理由
+**理由**
 
 一些代码如果不（比如通过命名或者代码注释）说明其设计意图的话，是不可能搞清楚代码是否达成其预定目标的。
 
-##### 示例
+**示例**
 
-    gsl::index i = 0;
-    while (i < v.size()) {
-        // ... 在 v[i] 上做一些事 ...
-    }
+```cpp
+gsl::index i = 0;
+while (i < v.size()) {
+    // ... 在 v[i] 上做一些事 ...
+}
+```
 
 这里并未表明其意图是“单纯地”循环访问 `v` 的元素。使用一个索引的实现细节被暴露了出来（因而可能导致被误用），而且 `i` 的存在超出了循环的范围，这也许符合也许违背了设计意图。读者仅从这段代码中是无法了解清楚的。
 
 更好的方式是：
 
-    for (const auto& x : v) { /* 用 x 的值做一些事 */ }
+```cpp
+for (const auto& x : v) { /* 用 x 的值做一些事 */ }
+```
 
 现在，循环机制不明确给出，而且循环的操作针对的是 `const` 元素，以防止发生意外的修改。如果需要进行修改的话，则可以这样：
 
-    for (auto& x : v) { /* 修改 x */ }
+```cpp
+for (auto& x : v) { /* 修改 x */ }
+```
 
-`for` 语句的更多细节，请参见 [ES.71](#Res-for-range)。
+
 有时候，使用具名的算法会更好。 这个示例使用 Ranges TS 中的 `for_each`，因为它直接表达了意图：
 
-    for_each(v, [](int x) { /* 用 x 的值做一些事 */ });
-    for_each(par, v, [](int x) { /* 用 x 的值做一些事 */ });
+```cpp
+for_each(v, [](int x) { /* 用 x 的值做一些事 */ });
+for_each(par, v, [](int x) { /* 用 x 的值做一些事 */ });
+```
 
 最后一种写法让人明白，我们对按照何种顺序来处理 `v` 的各个元素并不关心。
 
@@ -667,22 +600,24 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * [ISO C++ 标准库](#S-stdlib)
 * 当前项目所使用的任何基础程序库
 
-##### 注解
+**注解**
 
 其他形式：说明要做什么，而不只是怎么做这些事。
 
-##### 注解
+**注解**
 
 一些语言构造比另一些可以更好地表达设计意图。
 
-##### 示例
+**示例**
 
 如果要用两个 `int` 来代表二维点的坐标值，应当这样：
 
-    draw_line(int, int, int, int);  // 含混的
-    draw_line(Point, Point);        // 清晰的
+```cpp
+draw_line(int, int, int, int);  // 含混的
+draw_line(Point, Point);        // 清晰的
+```
 
-##### 强制实施
+**强制实施**
 
 查找具有更加替代方案的一般模式：
 
@@ -694,9 +629,9 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 在聪敏的人工处理和半自动的程序变换之间存在巨大的空间。
 
-### <a name="Rp-typesafe"></a>P.4: 理想情况下，程序应当是静态类型安全的
+### 理想情况下，程序应当是静态类型安全的
 
-##### 理由
+**理由**
 
 理想情况下，程序应当完全是静态（编译期）类型安全的。
 不幸的是，这是不可能的。有问题的领域：
@@ -707,12 +642,12 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 范围错误
 * 窄化转换
 
-##### 注解
+**注解**
 
 这些领域是许多严重问题（如程序崩溃和安全性违规）的来源。
 我们争取为它们给出替代技术。
 
-##### 强制实施
+**强制实施**
 
 如果程序各自需要或者条件允许的话，我们可以逐个对这些问题类型分别进行阻止、克制或者检测。
 我们总会给出替代方案。
@@ -724,21 +659,23 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 范围错误 - 使用 `span`
 * 窄化转换 - 尽可能减少其使用，必须使用时则使用 `narrow` 或者 `narrow_cast`（来自 GSL）
 
-### <a name="Rp-compile-time"></a>P.5: 编译期检查优先于运行时检查
+### 编译期检查优先于运行时检查
 
-##### 理由
+**理由**
 
 为了代码清晰性和性能。
 对于编译期识别的错误是不需要编写错误处理的。
 
 ##### 示例
 
-    // Int 被用作整数的别名
-    int bits = 0;         // 请勿如此: 可以避免的代码
-    for (Int i = 1; i; i <<= 1)
-        ++bits;
-    if (bits < 32)
-        cerr << "Int too small\n";
+```cpp
+// Int 被用作整数的别名
+int bits = 0;         // 请勿如此: 可以避免的代码
+for (Int i = 1; i; i <<= 1)
+    ++bits;
+if (bits < 32)
+    cerr << "Int too small\n";
+```
 
 这个例子并没有达成其所要达成的目的（因为溢出是未定义行为），应当被替换为简单的 `static_assert`：
 
@@ -749,17 +686,21 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例
 
-    void read(int* p, int n);   // 读取至多 n 个整数到 *p 之中
-    
-    int a[100];
-    read(a, 1000);    // 不好，超过末尾了
+```cpp
+void read(int* p, int n);   // 读取至多 n 个整数到 *p 之中
+
+int a[100];
+read(a, 1000);    // 不好，超过末尾了
+```
 
 更好的做法是
 
-    void read(span<int> r); // 读取到整数区域范围 r 之中
-    
-    int a[100];
-    read(a);        // 好多了: 让编译器确定元素数量
+```cpp
+void read(span<int> r); // 读取到整数区域范围 r 之中
+
+int a[100];
+read(a);        // 好多了: 让编译器确定元素数量
+```
 
 **替代形式**: 不要把可以在编译期搞定的事推后到运行时进行。
 
@@ -768,7 +709,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 查找指针参数。
 * 查找运行时进行的范围违反检查。
 
-### <a name="Rp-run-time"></a>P.6: 应当使无法在编译期进行的检查能够在运行时实施
+### 应当使无法在编译期进行的检查能够在运行时实施
 
 ##### 理由
 
@@ -780,14 +721,16 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例，不好
 
-    // 分离编译，可能会被动态加载
-    extern void f(int* p);
-    
-    void g(int n)
-    {
-        // 不好的：并未把元素数量传递给 f()
-        f(new int[n]);
-    }
+```cpp
+// 分离编译，可能会被动态加载
+extern void f(int* p);
+
+void g(int n)
+{
+    // 不好的：并未把元素数量传递给 f()
+    f(new int[n]);
+}
+```
 
 此处，关键性的信息（元素数量）被完全掩盖起来，使其无法进行静态分析，而如果 `f()` 属于某个 ABI 的一部分的话，由于无法对这个指针进行“测量插装”，运行时检查也是不可行的。我们确实可以在自由存储中插入有助于检查的信息，但这需要对系统甚至是编译器做出整体改动。这就是一个能让错误检查变得非常困难的设计。
 
@@ -795,13 +738,15 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 当然可以把元素数量和指针一起进行传递：
 
-    // 分离编译，可能会被动态加载
-    extern void f2(int* p, int n);
-    
-    void g2(int n)
-    {
-        f2(new int[n], m);  // 不好的：可能会把错误的元素数量传递给 f()
-    }
+```cpp
+// 分离编译，可能会被动态加载
+extern void f2(int* p, int n);
+
+void g2(int n)
+{
+    f2(new int[n], m);  // 不好的：可能会把错误的元素数量传递给 f()
+}
+```
 
 把元素数量作为一个参数进行传递，比只传递指针而依靠某种（不明确的）对已知元素个数的约定或者找出元素个数的方式，要好得多，而且是更加常见的做法。但是如上所示，一个简单的错字就可以引入一个严重的错误。`f2()` 的两个参数之间的关联是基于约定的，而并不明确。
 
@@ -811,31 +756,35 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 使用标准库的资源管理指针指向对象时，也不能传递其大小：
 
-    // 分离编译，可能会被动态加载
-    // NB: 这里假定调用代码是 ABI 兼容的，使用的是
-    // 兼容的 C++ 编译器和同一个 stdlib 实现
-    extern void f3(unique_ptr<int[]>, int n);
-    
-    void g3(int n)
-    {
-        f3(make_unique<int[]>(n), m);    // 不好的：把所有权和大小分开进行传递
-    }
+```cpp
+// 分离编译，可能会被动态加载
+// NB: 这里假定调用代码是 ABI 兼容的，使用的是
+// 兼容的 C++ 编译器和同一个 stdlib 实现
+extern void f3(unique_ptr<int[]>, int n);
+
+void g3(int n)
+{
+    f3(make_unique<int[]>(n), m);    // 不好的：把所有权和大小分开进行传递
+}
+```
 
 ##### 示例
 
 我们得把指针和元素数量作为一个对象整体来进行传递：
 
-    extern void f4(vector<int>&);   // 分离编译，可能会被动态加载
-    extern void f4(span<int>);      // 分离编译，可能会被动态加载
-                                    // NB: 这里假定调用代码是 ABI 兼容的，使用的是
-                                    // 兼容的 C++ 编译器和同一个 stdlib 实现
-    
-    void g3(int n)
-    {
-        vector<int> v(n);
-        f4(v);                     // 传递引用，保留所有权
-        f4(span<int>{v});          // 传递视图，保留所有权
-    }
+```cpp
+extern void f4(vector<int>&);   // 分离编译，可能会被动态加载
+extern void f4(span<int>);      // 分离编译，可能会被动态加载
+                                // NB: 这里假定调用代码是 ABI 兼容的，使用的是
+                                // 兼容的 C++ 编译器和同一个 stdlib 实现
+
+void g3(int n)
+{
+    vector<int> v(n);
+    f4(v);                     // 传递引用，保留所有权
+    f4(span<int>{v});          // 传递视图，保留所有权
+}
+```
 
 这个设计将元素数量作为对象的固有部分，因此不太可能有错误，动态（运行时的）检查即使不总是可承担的，也总是可行的。
 
@@ -843,26 +792,28 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 如果把所有权和验证所需的全部信息一起传递的话会怎么样呢？
 
-    vector<int> f5(int n)    // OK: 移动
-    {
-        vector<int> v(n);
-        // ... 初始化 v ...
-        return v;
-    }
-    
-    unique_ptr<int[]> f6(int n)    // 不好的：缺失了 n
-    {
-        auto p = make_unique<int[]>(n);
-        // ... 初始化 *p ...
-        return p;
-    }
-    
-    owner<int*> f7(int n)    // 不好的：缺失了 n 并且我们可能会忘记 delete
-    {
-        owner<int*> p = new int[n];
-        // ... 初始化 *p ...
-        return p;
-    }
+```cpp
+vector<int> f5(int n)    // OK: 移动
+{
+    vector<int> v(n);
+    // ... 初始化 v ...
+    return v;
+}
+
+unique_ptr<int[]> f6(int n)    // 不好的：缺失了 n
+{
+    auto p = make_unique<int[]>(n);
+    // ... 初始化 *p ...
+    return p;
+}
+
+owner<int*> f7(int n)    // 不好的：缺失了 n 并且我们可能会忘记 delete
+{
+    owner<int*> p = new int[n];
+    // ... 初始化 *p ...
+    return p;
+}
+```
 
 ##### 示例
 
@@ -875,7 +826,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 标示出 (pointer, count) 形式的接口（这将标示出大量的因为兼容性原因而无法进行修正的实例）
 * ???
 
-### <a name="Rp-early"></a>P.7: 尽早识别运行时错误
+### 尽早识别运行时错误
 
 ##### 理由
 
@@ -884,73 +835,81 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例
 
-    void increment1(int* p, int n)    // 不好的：易于出错
-    {
-        for (int i = 0; i < n; ++i) ++p[i];
-    }
-    
-    void use1(int m)
-    {
-        const int n = 10;
-        int a[n] = {};
-        // ...
-        increment1(a, m);   // 可能是打错字，可能假定有 m <= n
-                            // 不过让我们假设 m == 20
-        // ...
-    }
+```cpp
+void increment1(int* p, int n)    // 不好的：易于出错
+{
+    for (int i = 0; i < n; ++i) ++p[i];
+}
+
+void use1(int m)
+{
+    const int n = 10;
+    int a[n] = {};
+    // ...
+    increment1(a, m);   // 可能是打错字，可能假定有 m <= n
+                        // 不过让我们假设 m == 20
+    // ...
+}
+```
 
 我们在 `use1` 里面犯了一个能够导致数据损坏或程序崩溃的小错误。
 这个 (pointer, count) 形式的接口让 `increment1()` 没有可以使其防范越界错误的任何现实可行的方式。
 如果我们可以检测到越界访问的下标的话，那么这个错误直到对 `p[10]` 进行访问之前都不会被发现。
 我们可以提早进行检查来改进这个代码：
 
-    void increment2(span<int> p)
-    {
-        for (int& x : p) ++x;
-    }
-    
-    void use2(int m)
-    {
-        const int n = 10;
-        int a[n] = {};
-        // ...
-        increment2({a, m});    // 可能是打错字，可能假定有 m<=n
-        // ...
-    }
+```cpp
+void increment2(span<int> p)
+{
+    for (int& x : p) ++x;
+}
+
+void use2(int m)
+{
+    const int n = 10;
+    int a[n] = {};
+    // ...
+    increment2({a, m});    // 可能是打错字，可能假定有 m<=n
+    // ...
+}
+```
 
 现在，就可以在调用点（提早地）检查 `m <= n`，而不是更晚进行了。
 如果我们只是打错了字而本想用 `n` 作为边界值的话，代码还可以进一步简化（来消除一处错误的可能性）：
 
-    void use3(int m)
-    {
-        const int n = 10;
-        int a[n] = {};
-        // ...
-        increment2(a);   // 不需要重复给出 a 的元素数量
-        // ...
-    }
+```cpp
+void use3(int m)
+{
+    const int n = 10;
+    int a[n] = {};
+    // ...
+    increment2(a);   // 不需要重复给出 a 的元素数量
+    // ...
+}
+```
 
 ##### 示例，不好
 
 不要对同一个值重复进行检查。不要用字符串来传递有结构的数据：
 
-    Date read_date(istream& is);    // 从 istream 读取日期
-    
-    Date extract_date(const string& s);    // 从 string 中抽取日期
-    
-    void user1(const string& date)    // 操作 date
-    {
-        auto d = extract_date(date);
-        // ...
-    }
-    
-    void user2()
-    {
-        Date d = read_date(cin);
-        // ...
-        user1(d.to_string());
-        // ...
-    }
+```cpp
+Date read_date(istream& is);    // 从 istream 读取日期
+
+Date extract_date(const string& s);    // 从 string 中抽取日期
+
+void user1(const string& date)    // 操作 date
+{
+    auto d = extract_date(date);
+    // ...
+}
+
+void user2()
+{
+    Date d = read_date(cin);
+    // ...
+    user1(d.to_string());
+    // ...
+}
+```
 
 这个日期被（`Date` 的构造函数）验证了两次，并以字符串（无结构的数据）的形式来传递。
 
@@ -959,26 +918,28 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 过量的检查可能是代价昂贵的。
 有些情况下提早检查可能会很低效，因为你可能根本不需要这个值，或者可能仅需要值的一部分，而这要比进行整体的检查容易得多。同样来说，不要添加能够改变接口的渐进式行为的验证性检查（例如，不要在平均复杂度为 `O(1)` 的接口中添加一个 `O(n)` 的检查）。
 
-    class Jet {    // 物理规则是: e * e < x * x + y * y + z * z
-        float x;
-        float y;
-        float z;
-        float e;
-    public:
-        Jet(float x, float y, float z, float e)
-            :x(x), y(y), z(z), e(e)
-        {
-            // 应不应该在这里检查这些值是物理上有意义的？
-        }
-    
-        float m() const
-        {
-            // 应不应该处理这里的退化情形？
-            return sqrt(x * x + y * y + z * z - e * e);
-        }
-    
-        ???
-    };
+```cpp
+class Jet {    // 物理规则是: e * e < x * x + y * y + z * z
+    float x;
+    float y;
+    float z;
+    float e;
+public:
+    Jet(float x, float y, float z, float e)
+        :x(x), y(y), z(z), e(e)
+    {
+        // 应不应该在这里检查这些值是物理上有意义的？
+    }
+
+    float m() const
+    {
+        // 应不应该处理这里的退化情形？
+        return sqrt(x * x + y * y + z * z - e * e);
+    }
+
+    ???
+};
+```
 
 喷流（Jet）的物理定律（`e * e < x * x + y * y + z * z`），由于可能存在测量误差的缘故并不是不变式。
 
@@ -992,7 +953,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 查找被转换成字符串的结构化数据（带有不变式的类的对象）
 * ???
 
-### <a name="Rp-leak"></a>P.8: 不要泄漏任何资源
+### 不要泄漏任何资源
 
 ##### 理由
 
@@ -1001,24 +962,28 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例，不好
 
-    void f(char* name)
-    {
-        FILE* input = fopen(name, "r");
-        // ...
-        if (something) return;   // 不好的：如果 something == true 的话，将会泄漏一个文件句柄
-        // ...
-        fclose(input);
-    }
+```cpp
+void f(char* name)
+{
+    FILE* input = fopen(name, "r");
+    // ...
+    if (something) return;   // 不好的：如果 something == true 的话，将会泄漏一个文件句柄
+    // ...
+    fclose(input);
+}
+```
 
 建议采用 [RAII](#Rr-raii)：
 
-    void f(char* name)
-    {
-        ifstream input {name};
-        // ...
-        if (something) return;   // OK: 没有泄漏
-        // ...
-    }
+```cpp
+void f(char* name)
+{
+    ifstream input {name};
+    // ...
+    if (something) return;   // OK: 没有泄漏
+    // ...
+}
+```
 
 **参见**: [资源管理相关章节](#S-resource)
 
@@ -1045,7 +1010,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 查找裸露的 `new` 和 `delete`
 * 查找已知的返回原始指针的资源分配函数（诸如 `fopen`，`malloc`，和 `strdup` 等）
 
-### <a name="Rp-waste"></a>P.9: 不要浪费时间或空间
+### 不要浪费时间或空间
 
 ##### 理由
 
@@ -1058,37 +1023,39 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例，不好
 
-    struct X {
-        char ch;
-        int i;
-        string s;
-        char ch2;
-    
-        X& operator=(const X& a);
-        X(const X&);
-    };
-    
-    X waste(const char* p)
-    {
-        if (!p) throw Nullptr_error{};
-        int n = strlen(p);
-        auto buf = new char[n];
-        if (!buf) throw Allocation_error{};
-        for (int i = 0; i < n; ++i) buf[i] = p[i];
-        // ... 对缓冲区进行操作 ...
-        X x;
-        x.ch = 'a';
-        x.s = string(n);    // 在 x.s 上预留 *p 的空间
-        for (gsl::index i = 0; i < x.s.size(); ++i) x.s[i] = buf[i];  // 把 buf 复制给 x.s
-        delete[] buf;
-        return x;
-    }
-    
-    void driver()
-    {
-        X x = waste("Typical argument");
-        // ...
-    }
+```cpp
+struct X {
+    char ch;
+    int i;
+    string s;
+    char ch2;
+
+    X& operator=(const X& a);
+    X(const X&);
+};
+
+X waste(const char* p)
+{
+    if (!p) throw Nullptr_error{};
+    int n = strlen(p);
+    auto buf = new char[n];
+    if (!buf) throw Allocation_error{};
+    for (int i = 0; i < n; ++i) buf[i] = p[i];
+    // ... 对缓冲区进行操作 ...
+    X x;
+    x.ch = 'a';
+    x.s = string(n);    // 在 x.s 上预留 *p 的空间
+    for (gsl::index i = 0; i < x.s.size(); ++i) x.s[i] = buf[i];  // 把 buf 复制给 x.s
+    delete[] buf;
+    return x;
+}
+
+void driver()
+{
+    X x = waste("Typical argument");
+    // ...
+}
+```
 
 这个确实有些夸张，但我们在产品代码中能够见到这里所犯的每个错误，甚至更糟糕。
 注意，`X` 的布局保证会浪费至少 6 个字节，而且很可能更多。
@@ -1099,10 +1066,12 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例，不好
 
-    void lower(zstring s)
-    {
-        for (int i = 0; i < strlen(s); ++i) s[i] = tolower(s[i]);
-    }
+```cpp
+void lower(zstring s)
+{
+    for (int i = 0; i < strlen(s); ++i) s[i] = tolower(s[i]);
+}
+```
 
 这个其实是一个来自产品代码的例子。
 可以看到这里有一句 `i < strlen(s)`。这个表达式在循环的每次重复中都要求值，这意味着每次循环中 `strlen` 都必须走完字符串以确定其长度。我们假定在改动字符串内容过程中`toLower` 不会影响字符串的长度，因此最好在循环外面缓存长度值，而不是在每次重复中都承担其代价。
@@ -1121,7 +1090,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 当用户定义的非预置后缀 `operator++` 或 `operator--` 函数的返回值未被使用时进行标记。优先代之以采用前缀形式。（注：使用“用户定义的非预置”是为了减弱噪声。若实践中噪声还是很显著则需要重新审视这条强制措施。）
 
 
-### <a name="Rp-mutable"></a>P.10: 不可变数据优先于可变数据
+### 不可变数据优先于可变数据
 
 ##### 理由
 
@@ -1132,7 +1101,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 另见 [Con: 常量和不可变性](#S-const)
 
-### <a name="Rp-library"></a>P.11: 把杂乱的构造封装起来，而别让其散布到代码中
+### 把杂乱的构造封装起来，而别让其散布到代码中
 
 ##### 理由
 
@@ -1142,30 +1111,34 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例
 
-    int sz = 100;
-    int* p = (int*) malloc(sizeof(int) * sz);
-    int count = 0;
+```cpp
+int sz = 100;
+int* p = (int*) malloc(sizeof(int) * sz);
+int count = 0;
+// ...
+for (;;) {
+    // ... 读取一个 int 到 x 中，如果达到文件尾就退出循环 ...
+    // ... 检查 x 有效 ...
+    if (count == sz)
+        p = (int*) realloc(p, sizeof(int) * sz * 2);
+    p[count++] = x;
     // ...
-    for (;;) {
-        // ... 读取一个 int 到 x 中，如果达到文件尾就退出循环 ...
-        // ... 检查 x 有效 ...
-        if (count == sz)
-            p = (int*) realloc(p, sizeof(int) * sz * 2);
-        p[count++] = x;
-        // ...
-    }
+}
+```
 
 这段代码是低层的，啰嗦的，而且易错的。
 比如说，我们就“忘了”检查内存耗尽情况。
 我们可以代之以使用 `vector`：
 
-    vector<int> v;
-    v.reserve(100);
-    // ...
-    for (int x; cin >> x; ) {
-        // ... 检查 x is 有效 ...
-        v.push_back(x);
-    }
+```cpp
+vector<int> v;
+v.reserve(100);
+// ...
+for (int x; cin >> x; ) {
+    // ... 检查 x is 有效 ...
+    v.push_back(x);
+}
+```
 
 ##### 注解
 
@@ -1182,7 +1155,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 查找如复杂指针操作和在抽象的实现外面进行强制转换这样的“混乱代码”。
 
 
-### <a name="Rp-tools"></a>P.12: 适当采用支持工具
+### 适当采用支持工具
 
 ##### 理由
 
@@ -1211,7 +1184,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 它们会使得你本来可移植的代码变得不可移植。
 
 
-### <a name="Rp-lib"></a>P.13: 适当采用支持程序库
+### 适当采用支持程序库
 
 ##### 理由
 
@@ -1225,7 +1198,9 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例
 
-    std::sort(begin(v), end(v), std::greater<>());
+```cpp
+std::sort(begin(v), end(v), std::greater<>());
+```
 
 如果你不是排序算法方面的专家而且有大量时间的话，
 这样的代码比你为特定的应用所编写的任何代码都更可能正确并且运行得更快。
@@ -1244,45 +1219,12 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 可能应当由你来设计并实现它，再进行使用了。
 
 
-# <a name="S-interfaces"></a>I: 接口
+# 接口
 
 接口是程序中的两个部分之间的契约。严格地规定服务提供者和该服务使用者的预期是必要的。
 在代码的组织中，良好的接口（易于理解，促进高效的使用方式，不易出错，支持进行测试，等等）可能是最重要的单个方面了。
 
-接口规则概览：
-
-* [I.1: 使接口明确](#Ri-explicit)
-* [I.2: 避免非 `const` 全局变量](#Ri-global)
-* [I.3: 避免使用单例](#Ri-singleton)
-* [I.4: 使接口严格和强类型化](#Ri-typed)
-* [I.5: 说明前条件（如果有）](#Ri-pre)
-* [I.6: 优先使用 `Expects()` 来表达前条件](#Ri-expects)
-* [I.7: 说明后条件](#Ri-post)
-* [I.8: 优先使用 `Ensures()` 来表达后条件](#Ri-ensures)
-* [I.9: 当接口是模板时，用概念来文档化其参数](#Ri-concepts)
-* [I.10: 使用异常来表明无法实施所要求的任务](#Ri-except)
-* [I.11: 决不以原始指针（`T*`）或引用（`T&`）来传递所有权](#Ri-raw)
-* [I.12: 把不能为空的指针声明为 `not_null`](#Ri-nullptr)
-* [I.13: 不要只用一个指针来传递数组](#Ri-array)
-* [I.22: 避免全局对象之间进行复杂的初始化](#Ri-global-init)
-* [I.23: 保持较少的函数参数数量](#Ri-nargs)
-* [I.24: 避免可以由同一组实参以不同顺序调用造成不同含义的相邻形参](#Ri-unrelated)
-* [I.25: 优先以空抽象类作为类层次的接口](#Ri-abstract)
-* [I.26: 当想要跨编译器的 ABI 时，使用一个 C 风格的语言子集](#Ri-abi)
-* [I.27: 对于稳定的程序库 ABI，考虑使用 Pimpl 手法](#Ri-pimpl)
-* [I.30: 将有违规则的部分封装](#Ri-encapsulate)
-
-**参见**
-
-* [F: 函数](#S-functions)
-* [C.concrete: 具体类型](#SS-concrete)
-* [C.hier: 类层次](#SS-hier)
-* [C.over: 函数重载和重载运算符](#SS-overload)
-* [C.con: 容器和其他资源封装类](#SS-containers)
-* [E: 错误处理](#S-errors)
-* [T: 模板和泛型编程](#S-templates)
-
-### <a name="Ri-explicit"></a>I.1: 使接口明确
+### 使接口明确
 
 ##### 理由
 
@@ -1292,10 +1234,12 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 通过全局（命名空间作用域）变量（调用模式）来控制函数的行为，是隐含的，而且潜在会造成困惑。例如：
 
-    int round(double d)
-    {
-        return (round_up) ? ceil(d) : d;    // 请勿：“不可见的”依赖
-    }
+```cpp
+int round(double d)
+{
+    return (round_up) ? ceil(d) : d;    // 请勿：“不可见的”依赖
+}
+```
 
 两次调用 `round(7.2)` 的含义可能给出不同的结果，这对于调用者来说是不明显的。
 
@@ -1308,8 +1252,10 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 通过非局部变量（比如 `errno`）进行的报告经常被忽略。例如：
 
-    // 请勿：printf 的返回值未进行检查
-    fprintf(connection, "logging: %d %d %d\n", x, y, s);
+```cpp
+// 请勿：printf 的返回值未进行检查
+fprintf(connection, "logging: %d %d %d\n", x, y, s);
+```
 
 要是连接已经关闭而导致没有产生日志输出的话会怎么样？参见 I.???。
 
@@ -1326,7 +1272,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 【简单】 函数不能基于声明于命名空间作用域的变量来作出影响控制流的决定。
 * 【简单】 函数不能对声明于命名空间作用域的变量进行写入操作。
 
-### <a name="Ri-global"></a>I.2: 避免非 `const` 全局变量
+### 避免非 `const` 全局变量
 
 ##### 理由
 
@@ -1390,7 +1336,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 【简单】 报告所有在命名空间作用域中声明的非 `const` 变量和全局的指向非 const 数据的指针/引用。
 
 
-### <a name="Ri-singleton"></a>I.3: 避免使用单例
+### 避免使用单例
 
 ##### 理由
 
@@ -1451,7 +1397,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 查找只创建一个对象的类（通过对对象计数或者检查其构造函数）。
 * 如果某个类 X 具有公开的静态函数，并且它包含具有该类 X 类型的函数级局部静态变量并返回指向它的指针或者引用，就禁止它。
 
-### <a name="Ri-typed"></a>I.4: 使接口严格和强类型化
+### 使接口严格和强类型化
 
 ##### 理由
 
@@ -1480,19 +1426,23 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 考虑：
 
-    draw_rect(100, 200, 100, 500); // 这些数值什么意思？
-    
-    draw_rect(p.x, p.y, 10, 20); // 10 和 20 的单位是什么？
+```cpp
+draw_rect(100, 200, 100, 500); // 这些数值什么意思？
+
+draw_rect(p.x, p.y, 10, 20); // 10 和 20 的单位是什么？
+```
 
 很明显调用者在描述一个矩形，不明确的是它们都和其哪些部分相关。而且 `int` 可以表示任何形式的信息，包括各种不同单位的值，因此我们必须得猜测这四个 `int` 的含义。前两个很可能代表坐标对偶 `x` 和 `y`，但后两个是什么呢？
 
 注释和参数的名字可以有所帮助，但我们可以直截了当：
 
-    void draw_rectangle(Point top_left, Point bottom_right);
-    void draw_rectangle(Point top_left, Size height_width);
-    
-    draw_rectangle(p, Point{10, 20});  // 两个角点
-    draw_rectangle(p, Size{10, 20});   // 一个角和一对 (height, width)
+```cpp
+void draw_rectangle(Point top_left, Point bottom_right);
+void draw_rectangle(Point top_left, Size height_width);
+
+draw_rectangle(p, Point{10, 20});  // 两个角点
+draw_rectangle(p, Size{10, 20});   // 一个角和一对 (height, width)
+```
 
 显然，我们是无法利用静态类型系统识别所有的错误的，
 例如，假定第一个参数是左上角这一点就依赖于约定（命名或者注释）。
@@ -1501,7 +1451,9 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 考虑：
 
-    set_settings(true, false, 42); // 这些数值什么意思？
+```cpp
+set_settings(true, false, 42); // 这些数值什么意思？
+```
 
 各参数类型及其值并不能表明其所指定的设置项是什么以及它们的值所代表的含义。
 
@@ -1521,51 +1473,57 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 下例中，接口中并未明确给出 `time_to_blink` 的含义：按秒还是按毫秒算？
 
-    void blink_led(int time_to_blink) // 不好 -- 在单位上含糊
-    {
-        // ...
-        // 对 time_to_blink 做一些事
-        // ...
-    }
-    
-    void use()
-    {
-        blink_led(2);
-    }
+```cpp
+void blink_led(int time_to_blink) // 不好 -- 在单位上含糊
+{
+    // ...
+    // 对 time_to_blink 做一些事
+    // ...
+}
+
+void use()
+{
+    blink_led(2);
+}
+```
 
 ##### 示例，好
 
 `std::chrono::duration` 类型可以让时间段的单位明确下来。
 
-    void blink_led(milliseconds time_to_blink) // 好 -- 单位明确
-    {
-        // ...
-        // 对 time_to_blink 做一些事
-        // ...
-    }
-    
-    void use()
-    {
-        blink_led(1500ms);
-    }
+```cpp
+void blink_led(milliseconds time_to_blink) // 好 -- 单位明确
+{
+    // ...
+    // 对 time_to_blink 做一些事
+    // ...
+}
+
+void use()
+{
+    blink_led(1500ms);
+}
+```
 
 这个函数还可以写成使其接受任何时间段单位的形式。
 
-    template<class rep, class period>
-    void blink_led(duration<rep, period> time_to_blink) // 好 -- 接受任何单位
-    {
-        // 假设最小的有意义单位是毫秒
-        auto milliseconds_to_blink = duration_cast<milliseconds>(time_to_blink);
-        // ...
-        // 对 milliseconds_to_blink 做一些事
-        // ...
-    }
-    
-    void use()
-    {
-        blink_led(2s);
-        blink_led(1500ms);
-    }
+```cpp
+template<class rep, class period>
+void blink_led(duration<rep, period> time_to_blink) // 好 -- 接受任何单位
+{
+    // 假设最小的有意义单位是毫秒
+    auto milliseconds_to_blink = duration_cast<milliseconds>(time_to_blink);
+    // ...
+    // 对 milliseconds_to_blink 做一些事
+    // ...
+}
+
+void use()
+{
+    blink_led(2s);
+    blink_led(1500ms);
+}
+```
 
 ##### 强制实施
 
@@ -1573,7 +1531,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 * 【简单】 报告使用了多个 `bool` 参数的情况
 * 【难于做好】 查找使用了过多基础类型的参数的函数。
 
-### <a name="Ri-pre"></a>I.5: 说明前条件（如果有）
+### 说明前条件（如果有）
 
 ##### 理由
 
@@ -1622,12 +1580,14 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例
 
-    int area(int height, int width)
-    {
-        Expects(height > 0 && width > 0);            // 好
-        if (height <= 0 || width <= 0) my_error();   // 隐晦的
-        // ...
-    }
+```cpp
+int area(int height, int width)
+{
+    Expects(height > 0 && width > 0);            // 好
+    if (height <= 0 || width <= 0) my_error();   // 隐晦的
+    // ...
+}
+```
 
 ##### 注解
 
@@ -1652,7 +1612,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 【无法强制实施】 要把各种对前条件进行断言的方式都找出来是不可行的。对那些易于识别的（如 `assert()`）实例给出警告的做法，其意义在缺少语言设施的前提下是有问题的。
 
-### <a name="Ri-post"></a>I.7: 说明后条件
+### 说明后条件
 
 ##### 理由
 
@@ -1662,40 +1622,48 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 考虑：
 
-    int area(int height, int width) { return height * width; }  // 不好
+```cpp
+int area(int height, int width) { return height * width; }  // 不好
+```
 
 这里，我们（粗心大意地）遗漏了前条件的说明，因此高度和宽度必须是正数这点是不明确的。
 我们也遗漏了后条件的说明，因此算法（`height * width`）对于大于最大整数的面积来说是错误的这点是不明显的。
 可能会有溢出。
 应该考虑使用：
 
-    int area(int height, int width)
-    {
-        auto res = height * width;
-        Ensures(res > 0);
-        return res;
-    }
+```cpp
+int area(int height, int width)
+{
+    auto res = height * width;
+    Ensures(res > 0);
+    return res;
+}
+```
 
 ##### 示例，不好
 
 考虑一个著名的安全性 BUG：
 
-    void f()    // 有问题的
-    {
-        char buffer[MAX];
-        // ...
-        memset(buffer, 0, sizeof(buffer));
-    }
+```cpp
+void f()    // 有问题的
+{
+    char buffer[MAX];
+    // ...
+    memset(buffer, 0, sizeof(buffer));
+}
+```
 
 由于没有后条件来说明缓冲区应当被清零，优化器可能会将这个看似多余的 `memset()` 调用给清除掉：
 
-    void f()    // 有改进
-    {
-        char buffer[MAX];
-        // ...
-        memset(buffer, 0, sizeof(buffer));
-        Ensures(buffer[0] == 0);
-    }
+```cpp
+void f()    // 有改进
+{
+    char buffer[MAX];
+    // ...
+    memset(buffer, 0, sizeof(buffer));
+    Ensures(buffer[0] == 0);
+}
+```
 
 ##### 注解
 
@@ -1709,32 +1677,38 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 考虑一个操作 `Record` 的函数，它使用 `mutex` 来避免数据竞争条件：
 
-    mutex m;
-    
-    void manipulate(Record& r)    // 请勿这样做
-    {
-        m.lock();
-        // ... 没有 m.unlock() ...
-    }
+```cpp
+mutex m;
+
+void manipulate(Record& r)    // 请勿这样做
+{
+    m.lock();
+    // ... 没有 m.unlock() ...
+}
+```
 
 这里，我们“忘记”说明应当释放 `mutex`，因此我们搞不清楚这里 `mutex` 释放的缺失是一个 BUG 还是一种功能特性。
 把后条件说明将使其更加明确：
 
-    void manipulate(Record& r)    // 后条件: m 在退出后是未锁定的
-    {
-        m.lock();
-        // ... 没有 m.unlock() ...
-    }
+```cpp
+void manipulate(Record& r)    // 后条件: m 在退出后是未锁定的
+{
+    m.lock();
+    // ... 没有 m.unlock() ...
+}
+```
 
 现在这个 BUG 就明显了（但仅对阅读了代码注释的人类来说）。
 
 更好的做法是使用 [RAII](#Rr-raii) 来在代码中保证后条件（“锁必须进行释放”）的实施：
 
-    void manipulate(Record& r)    // 最好这样
-    {
-        lock_guard<mutex> _ {m};
-        // ...
-    }
+```cpp
+void manipulate(Record& r)    // 最好这样
+{
+    lock_guard<mutex> _ {m};
+    // ...
+}
+```
 
 ##### 注解
 
@@ -1748,7 +1722,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 检查是不可行的。不过许多工具链中都有适用于特定领域的检查器，
 比如针对锁定持有情况的检查器。
 
-### <a name="Ri-ensures"></a>I.8: 优先使用 `Ensures()` 来表达后条件
+### 优先使用 `Ensures()` 来表达后条件
 
 ##### 理由
 
@@ -1756,13 +1730,15 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 ##### 示例
 
-    void f()
-    {
-        char buffer[MAX];
-        // ...
-        memset(buffer, 0, MAX);
-        Ensures(buffer[0] == 0);
-    }
+```cpp
+void f()
+{
+    char buffer[MAX];
+    // ...
+    memset(buffer, 0, MAX);
+    Ensures(buffer[0] == 0);
+}
+```
 
 ##### 注解
 
@@ -1781,7 +1757,7 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 【无法强制实施】 要把各种对后条件进行断言的方式都找出来是不可行的。对那些易于识别的（如 `assert()`）实例给出警告的做法，其意义在缺少语言设施的前提下是有问题的。
 
-### <a name="Ri-concepts"></a>I.9: 当接口是模板时，用概念来文档化其参数
+### 当接口是模板时，用概念来文档化其参数
 
 ##### 理由
 
@@ -1791,12 +1767,14 @@ C++ 程序员应当熟知标准库的基本知识，并在适当的时候加以�
 
 使用 C++20 风格的必要条件说明。例如：
 
-    template<typename Iter, typename Val>
-    // requires InputIterator<Iter> && EqualityComparable<ValueType<Iter>>, Val>
-    Iter find(Iter first, Iter last, Val v)
-    {
-        // ...
-    }
+```cpp
+template<typename Iter, typename Val>
+// requires InputIterator<Iter> && EqualityComparable<ValueType<Iter>>, Val>
+Iter find(Iter first, Iter last, Val v)
+{
+    // ...
+}
+```
 
 ##### 注解
 
@@ -1809,7 +1787,7 @@ GCC 6.1 及其后版本支持概念。
 
 【还无法强制实施】 当前正在对一种语言设施进行规范化。一旦这种语言设施出现，就可以对未被概念所约束（在其声明式之中或者在一个 `requires` 子句中所给出）的并非可变数量的模板形参作出警告了。
 
-### <a name="Ri-except"></a>I.10: 使用异常来表明无法实施所要求的任务
+### 使用异常来表明无法实施所要求的任务
 
 ##### 理由
 
@@ -1818,11 +1796,13 @@ GCC 6.1 及其后版本支持概念。
 
 ##### 示例
 
-    int printf(const char* ...);    // 不好: 当输出失败时返回负值
-    
-    template<class F, class ...Args>
-    // 好: 当无法启动一个新的线程时抛出 system_error
-    explicit thread(F&& f, Args&&... args);
+```cpp
+int printf(const char* ...);    // 不好: 当输出失败时返回负值
+
+template<class F, class ...Args>
+// 好: 当无法启动一个新的线程时抛出 system_error
+explicit thread(F&& f, Args&&... args);
+```
 
 ##### 注解
 
@@ -1842,22 +1822,26 @@ GCC 6.1 及其后版本支持概念。
 
 如果你不能使用异常（比如说由于你的代码全都是老式的原始指针用法，或者由于你有硬实时性的约束），请考虑使用返回一对值的代码风格：
 
-    int val;
-    int error_code;
-    tie(val, error_code) = do_something();
-    if (error_code) {
-        // ... 处理错误或者退出 ...
-    }
-    // ... 使用 val ...
+```cpp
+int val;
+int error_code;
+tie(val, error_code) = do_something();
+if (error_code) {
+    // ... 处理错误或者退出 ...
+}
+// ... 使用 val ...
+```
 
 这种风格不幸地会导致未初始化的变量。
 从 C++17 开始，可以使用 "结构化绑定" 功能特性来从返回值直接对多个变量初始化。
 
-    auto [val, error_code] = do_something();
-    if (error_code) {
-        // ... 处理错误或者退出 ...
-    }
-    // ... 使用 val ...
+```cpp
+auto [val, error_code] = do_something();
+if (error_code) {
+    // ... 处理错误或者退出 ...
+}
+// ... 使用 val ...
+```
 
 ##### 注解
 
@@ -1876,7 +1860,7 @@ GCC 6.1 及其后版本支持概念。
 * 【无法强制实施】 这是一条理念性的指导方针，进行直接的检查是不可行的。
 * 查找 `errno`。
 
-### <a name="Ri-raw"></a>I.11: 决不以原始指针（`T*`）或引用（`T&`）来传递所有权
+### 决不以原始指针（`T*`）或引用（`T&`）来传递所有权
 
 ##### 理由
 
@@ -1886,22 +1870,26 @@ GCC 6.1 及其后版本支持概念。
 
 考虑：
 
-    X* compute(args)    // 请勿这样做
-    {
-        X* res = new X{};
-        // ...
-        return res;
-    }
+```cpp
+X* compute(args)    // 请勿这样做
+{
+    X* res = new X{};
+    // ...
+    return res;
+}
+```
 
 应当由谁来删除返回的这个 `X` 呢？如果 `compute` 返回引用的话这个问题将更难发现。
 应该考虑按值来返回结果（如果结果比较大的话就用移动语义）：
 
-    vector<double> compute(args)  // 好的
-    {
-        vector<double> res(10000);
-        // ...
-        return res;
-    }
+```cpp
+vector<double> compute(args)  // 好的
+{
+    vector<double> res(10000);
+    // ...
+    return res;
+}
+```
 
 **替代方案**: 用“智能指针”来[传递所有权](#Rr-smartptrparam)，比如 `unique_ptr`（专有所有权）和 `shared_ptr`（共享所有权）。
 这样做比返回对象自身来说并没有那么简炼，而且通常也不那么高效，
@@ -1910,12 +1898,14 @@ GCC 6.1 及其后版本支持概念。
 **替代方案**: 有时候因为 ABI 兼容性的要求或者缺少资源，是无法对老代码进行修改的。
 这种情况下，请用[指导方针支持库](#S-gsl)的 `owner` 来标记拥有对象的指针：
 
-    owner<X*> compute(args)    // 现在就明确传递了所有权这一点
-    {
-        owner<X*> res = new X{};
-        // ...
-        return res;
-    }
+```cpp
+owner<X*> compute(args)    // 现在就明确传递了所有权这一点
+{
+    owner<X*> res = new X{};
+    // ...
+    return res;
+}
+```
 
 这告诉了分析工具 `res` 是一个所有者。
 就是说，它的值必须被 `delete`，或者被传递给另一个所有者，正如这里的 `return` 所做。
@@ -1937,7 +1927,7 @@ GCC 6.1 及其后版本支持概念。
 * 【简单】 当任何代码路径上遗漏了对 `owner` 指针的 `reset` 或者显式的 `delete` 时就发出警告。
 * 【简单】 当把 `new` 或者返回值为 `owner` 的函数的返回值赋值给原始指针或非 `ower` 的引用时就发出警告。
 
-### <a name="Ri-nullptr"></a>I.12: 把不能为空的指针声明为 `not_null`
+### 把不能为空的指针声明为 `not_null`
 
 ##### 理由
 
@@ -1946,13 +1936,15 @@ GCC 6.1 及其后版本支持概念。
 
 ##### 示例
 
-    int length(const char* p);            // 不清楚 length(nullptr) 是否有效
-    
-    length(nullptr);                      // OK?
-    
-    int length(not_null<const char*> p);  // 有改善：可以假定 p 不可能为 nullptr
-    
-    int length(const char* p);            // 只好假定 p 可以为 nullptr
+```cpp
+int length(const char* p);            // 不清楚 length(nullptr) 是否有效
+
+length(nullptr);                      // OK?
+
+int length(not_null<const char*> p);  // 有改善：可以假定 p 不可能为 nullptr
+
+int length(const char* p);            // 只好假定 p 可以为 nullptr
+```
 
 通过在源代码中说明意图，实现者和工具就可以提供更好的诊断能力，比如通过静态分析来找出某些种类的错误，还可以实施优化，比如移除分支和空值测试。
 
@@ -1964,9 +1956,11 @@ GCC 6.1 及其后版本支持概念。
 
 指向 `char` 的指针将指向 C 风格的字符串（以零终结的字符的连续串）这一点仍然是潜规则，并且也是混乱和错误的潜在来源。请使用 `czstring` 来代替 `const char*`。
 
-    // 可以假定 p 不能为 nullptr
-    // 可以假定 p 指向以零终结的字符数组
-    int length(not_null<zstring> p);
+```cpp
+// 可以假定 p 不能为 nullptr
+// 可以假定 p 指向以零终结的字符数组
+int length(not_null<zstring> p);
+```
 
 注意： `length()` 显然是经过伪装的 `std::strlen()`。
 
@@ -1975,7 +1969,7 @@ GCC 6.1 及其后版本支持概念。
 * 【简单】〔基础〕 如果有函数在所有控制流路径上访问指针参数之前检查它是否是 `nullptr`，则给出警告称其应当被声明为 `not_null`。
 * 【复杂】 如果有指针返回值的函数在所有返回路径上都保证其不是 `nullptr`，则给出警告称返回类型应当被声明为 `not_null`。
 
-### <a name="Ri-array"></a>I.13: 不要只用一个指针来传递数组
+### 不要只用一个指针来传递数组
 
 ##### 理由
 
@@ -1985,7 +1979,9 @@ GCC 6.1 及其后版本支持概念。
 
 考虑：
 
-    void copy_n(const T* p, T* q, int n); // 从 [p:p+n) 复制到 [q:q+n)
+```cpp
+void copy_n(const T* p, T* q, int n); // 从 [p:p+n) 复制到 [q:q+n)
+```
 
 当由 `q` 所指向的数组少于 `n` 个元素会怎么样？此时我们将覆写一些可能无关的内存。
 当由 `p` 所指向的数组少于 `n` 个元素会怎么样？此时我们将读取一些可能无关的内存。
@@ -1995,29 +1991,35 @@ GCC 6.1 及其后版本支持概念。
 
 考虑使用明确的 `span`：
 
-    void copy(span<const T> r, span<T> r2); // 将 r 复制给 r2
+```cpp
+void copy(span<const T> r, span<T> r2); // 将 r 复制给 r2
+```
 
 ##### 示例，不好
 
 考虑：
 
-    void draw(Shape* p, int n);  // 糟糕的接口；糟糕的代码
-    Circle arr[10];
-    // ...
-    draw(arr, 10);
+```cpp
+void draw(Shape* p, int n);  // 糟糕的接口；糟糕的代码
+Circle arr[10];
+// ...
+draw(arr, 10);
+```
 
 把 `10` 作为参数 `n` 传递可能是错误的：虽然最常见的约定是假定有 `[0:n)`，但这点并未不是明确的。更糟糕的是，`draw()` 的调用通过编译了：这里有一次从数组到指针的隐式转换（数组衰退），然后又进行了从 `Circle` 到 `Shape` 的另一次隐式转换。`draw()` 是不可能安全地迭代这个数组的：它无法知道元素的大小。
 
 **替代方案**: 使用一个辅助类来确保元素的数量正确，并避免进行危险的隐式转换。例如：
 
-    void draw2(span<Circle>);
-    Circle arr[10];
-    // ...
-    draw2(span<Circle>(arr));  // 推断出元素的数量
-    draw2(arr);    // 推断出元素的类型和数组大小
-    
-    void draw3(span<Shape>);
-    draw3(arr);    // 错误: 无法将 Circle[10] 转换为 span<Shape>
+```cpp
+void draw2(span<Circle>);
+Circle arr[10];
+// ...
+draw2(span<Circle>(arr));  // 推断出元素的数量
+draw2(arr);    // 推断出元素的类型和数组大小
+
+void draw3(span<Shape>);
+draw3(arr);    // 错误: 无法将 Circle[10] 转换为 span<Shape>
+```
 
 这个 `draw2()` 传递了与 `draw()` 同样数量的信息，但明确指定了它接受的是 `Circle` 的范围。参见 ???.
 
@@ -2031,7 +2033,7 @@ GCC 6.1 及其后版本支持概念。
 * 【简单】〔边界〕 对任何依赖于从数组类型向指针类型的隐式转换的表达式给出警告。允许 zstring/czstring 指针类型的例外。
 * 【简单】〔边界〕 对任何指针类型表达式进行且结果为指针类型的值的运算操作给出警告。允许 zstring/czstring 指针类型的例外。
 
-### <a name="Ri-global-init"></a>I.22: 避免全局对象之间进行复杂的初始化
+### 避免全局对象之间进行复杂的初始化
 
 ##### 理由
 
@@ -2065,7 +2067,7 @@ GCC 6.1 及其后版本支持概念。
 * 标记调用了非 `constexpr` 函数的全局初始化式
 * 标记访问了 `extern` 对象的全局初始化式
 
-### <a name="Ri-nargs"></a>I.23: 保持较少的函数参数数量
+### 保持较少的函数参数数量
 
 ##### 理由
 
@@ -2088,43 +2090,55 @@ GCC 6.1 及其后版本支持概念。
 
 标准库的 `merge()` 函数达到了我们可以自如处理的界限：
 
-    template<class InputIterator1, class InputIterator2, class OutputIterator, class Compare>
-    OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
-                         InputIterator2 first2, InputIterator2 last2,
-                         OutputIterator result, Compare comp);
+```cpp
+template<class InputIterator1, class InputIterator2, class OutputIterator, class Compare>
+OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
+                     InputIterator2 first2, InputIterator2 last2,
+                     OutputIterator result, Compare comp);
+```
 
 注意，这属于上面的第一种问题：缺乏抽象。STL 传递的不是范围（抽象），而是一对迭代器（未封装的成分值）。
 
 其中有四个模板参数和留个函数参数。
 为简化最常用和最简单的用法，比较器参数可以缺省使用 `<`：
 
-    template<class InputIterator1, class InputIterator2, class OutputIterator>
-    OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
-                         InputIterator2 first2, InputIterator2 last2,
-                         OutputIterator result);
+```cpp
+template<class InputIterator1, class InputIterator2, class OutputIterator>
+OutputIterator merge(InputIterator1 first1, InputIterator1 last1,
+                     InputIterator2 first2, InputIterator2 last2,
+                     OutputIterator result);
+```
 
 这实际上不会减低其整体复杂性，但它减少了对于许多使用者的表面复杂性。
 为了真正地减少参数的数量，我们得把参数归拢到更高层的抽象之中：
 
-    template<class InputRange1, class InputRange2, class OutputIterator>
-    OutputIterator merge(InputRange1 r1, InputRange2 r2, OutputIterator result);
+```cpp
+template<class InputRange1, class InputRange2, class OutputIterator>
+OutputIterator merge(InputRange1 r1, InputRange2 r2, OutputIterator result);
+```
 
 把参数成“批”进行组合是减少参数数量和增加进行检查的机会的一般性技巧。
 
 或者，我们也可以用概念（如 ISO TS 所定义）来定义这三个类型必须可以用于进行合并：
 
-    Mergeable{In1, In2, Out}
-    OutputIterator merge(In1 r1, In2 r2, Out result);
+```cpp
+Mergeable{In1, In2, Out}
+OutputIterator merge(In1 r1, In2 r2, Out result);
+```
 
 ##### 示例
 
 安全性剖面配置中建议将以下代码
 
-    void f(int* some_ints, int some_ints_length);  // 不好：C 风格，不安全
+```cpp
+void f(int* some_ints, int some_ints_length);  // 不好：C 风格，不安全
+```
 
 替换为
 
-    void f(gsl::span<int> some_ints);              // 好：安全，有边界检查
+```cpp
+void f(gsl::span<int> some_ints);              // 好：安全，有边界检查
+```
 
 这样，使用一种抽象可以获得安全性和健壮性的好处，而且自然地减少了参数的数量。
 
@@ -2142,7 +2156,7 @@ GCC 6.1 及其后版本支持概念。
 * 当函数声明了两个类型相同的迭代器（也包括指针）而不是一个范围或视图，就给出警告。
 * 【无法强制实施】 这是一条理念性的指导方针，进行直接的检查是不可行的。
 
-### <a name="Ri-unrelated"></a>I.24: 避免可以由同一组实参以不同顺序调用造成不同含义的相邻形参
+### 避免可以由同一组实参以不同顺序调用造成不同含义的相邻形参
 
 ##### 理由
 
@@ -2152,36 +2166,46 @@ GCC 6.1 及其后版本支持概念。
 
 考虑：
 
-    void copy_n(T* p, T* q, int n);  // 从 [p:p + n) 复制到 [q:q + n)
+```cpp
+void copy_n(T* p, T* q, int n);  // 从 [p:p + n) 复制到 [q:q + n)
+```
 
 这是个 K&R C 风格接口的一种恶劣的变种。它导致很容易把“目标”和“来源”参数搞反。
 
 可以在“来源”参数上使用 `const`：
 
-    void copy_n(const T* p, T* q, int n);  // 从 [p:p + n) 复制到 [q:q + n)
+```cpp
+void copy_n(const T* p, T* q, int n);  // 从 [p:p + n) 复制到 [q:q + n)
+```
 
 ##### 例外
 
 当参数的顺序不重要时，不会造成问题：
 
-    int max(int a, int b);
+```cpp
+int max(int a, int b);
+```
 
 ##### 替代方案
 
 不要以指针来传递数组，而要传递用来表示一个范围的对象（比如一个 `span`）：
 
-    void copy_n(span<const T> p, span<T> q);  // 从 p 复制到 q
+```cpp
+void copy_n(span<const T> p, span<T> q);  // 从 p 复制到 q
+```
 
 ##### 替代方案
 
 定义一个 `struct` 来作为参数类型，并依照各个参数来命名它的各字段：
 
-    struct SystemParams {
-        string config_file;
-        string output_path;
-        seconds timeout;
-    };
-    void initialize(SystemParams p);
+```cpp
+struct SystemParams {
+    string config_file;
+    string output_path;
+    seconds timeout;
+};
+void initialize(SystemParams p);
+```
 
 这样做带来一种使其调用代码对于以后的读者变得明晰的倾向，因为这种参数
 在调用点通常都要按名字来进行填充。
@@ -2196,7 +2220,7 @@ GCC 6.1 及其后版本支持概念。
 
 我们仍在寻找不这么简单的强制实施方式。
 
-### <a name="Ri-abstract"></a>I.25: 优先以空抽象类作为类层次的接口
+### 优先以空抽象类作为类层次的接口
 
 ##### 理由
 
@@ -2206,36 +2230,40 @@ GCC 6.1 及其后版本支持概念。
 
 你知道 `Shape` 总会冒出来的 :-)
 
-    class Shape {  // 不好: 接口类中加载了数据
-    public:
-        Point center() const { return c; }
-        virtual void draw() const;
-        virtual void rotate(int);
-        // ...
-    private:
-        Point c;
-        vector<Point> outline;
-        Color col;
-    };
+```cpp
+class Shape {  // 不好: 接口类中加载了数据
+public:
+    Point center() const { return c; }
+    virtual void draw() const;
+    virtual void rotate(int);
+    // ...
+private:
+    Point c;
+    vector<Point> outline;
+    Color col;
+};
+```
 
 这将强制性要求每个派生类都要计算出一个中心点——即使这并不容易，而且这个中心点从不会被用到。相似地说，不是每个 `Shape` 都有一个 `Color`，而许多 `Shape` 也最好别用一个定义成一系列 `Point` 的轮廓来进行表示。使用抽象类要更好：
 
-    class Shape {    // 有改进: Shape 是一个纯接口
-    public:
-        virtual Point center() const = 0;   // 纯虚函数
-        virtual void draw() const = 0;
-        virtual void rotate(int) = 0;
-        // ...
-        // ... 没有数据成员 ...
-        // ...
-        virtual ~Shape() = default;        
-    };
+```cpp
+class Shape {    // 有改进: Shape 是一个纯接口
+public:
+    virtual Point center() const = 0;   // 纯虚函数
+    virtual void draw() const = 0;
+    virtual void rotate(int) = 0;
+    // ...
+    // ... 没有数据成员 ...
+    // ...
+    virtual ~Shape() = default;        
+};
+```
 
 ##### 强制实施
 
 【简单】 当把类 `C` 的指针/引用赋值给 `C` 的某个基类的指针/引用，而这个基类包含数据成员时，就给出警告。
 
-### <a name="Ri-abi"></a>I.26: 当想要跨编译器的 ABI 时，使用一个 C 风格的语言子集
+### 当想要跨编译器的 ABI 时，使用一个 C 风格的语言子集
 
 ##### 理由
 
@@ -2253,7 +2281,7 @@ GCC 6.1 及其后版本支持概念。
 
 【无法强制实施】 要可靠地识别某个接口是否是构成 ABI 的一部分是很困难的。
 
-### <a name="Ri-pimpl"></a>I.27: 对于稳定的程序库 ABI，考虑使用 Pimpl 手法
+### 对于稳定的程序库 ABI，考虑使用 Pimpl 手法
 
 ##### 理由
 
@@ -2265,33 +2293,37 @@ GCC 6.1 及其后版本支持概念。
 
 接口（widget.h）
 
-    class widget {
-        class impl;
-        std::unique_ptr<impl> pimpl;
-    public:
-        void draw(); // 公开 API 转发给实现
-        widget(int); // 定义于实现文件中
-        ~widget();   // 定义于实现文件中，其中 impl 将为完整类型
-        widget(widget&&); // 定义于实现文件中
-        widget(const widget&) = delete;
-        widget& operator=(widget&&); // 定义于实现文件中
-        widget& operator=(const widget&) = delete;
-    };
+```cpp
+class widget {
+    class impl;
+    std::unique_ptr<impl> pimpl;
+public:
+    void draw(); // 公开 API 转发给实现
+    widget(int); // 定义于实现文件中
+    ~widget();   // 定义于实现文件中，其中 impl 将为完整类型
+    widget(widget&&); // 定义于实现文件中
+    widget(const widget&) = delete;
+    widget& operator=(widget&&); // 定义于实现文件中
+    widget& operator=(const widget&) = delete;
+};
+```
 
 
 实现（widget.cpp）
 
-    class widget::impl {
-        int n; // private data
-    public:
-        void draw(const widget& w) { /* ... */ }
-        impl(int n) : n(n) {}
-    };
-    void widget::draw() { pimpl->draw(*this); }
-    widget::widget(int n) : pimpl{std::make_unique<impl>(n)} {}
-    widget::widget(widget&&) = default;
-    widget::~widget() = default;
-    widget& widget::operator=(widget&&) = default;
+```cpp
+class widget::impl {
+    int n; // private data
+public:
+    void draw(const widget& w) { /* ... */ }
+    impl(int n) : n(n) {}
+};
+void widget::draw() { pimpl->draw(*this); }
+widget::widget(int n) : pimpl{std::make_unique<impl>(n)} {}
+widget::widget(widget&&) = default;
+widget::~widget() = default;
+widget& widget::operator=(widget&&) = default;
+```
 
 ##### 注解
 
@@ -2301,7 +2333,7 @@ GCC 6.1 及其后版本支持概念。
 
 【无法强制】 很难可靠地识别出哪个接口属于 ABI 的一部分。
 
-### <a name="Ri-encapsulate"></a>I.30: 将有违规则的部分封装
+### 将有违规则的部分封装
 
 ##### 理由
 
@@ -2317,21 +2349,25 @@ GCC 6.1 及其后版本支持概念。
 从文件，从命令行，还是从标准输入来获得输入数据。
 我们可能会将其写成
 
-    bool owned;
-    owner<istream*> inp;
-    switch (source) {
-    case std_in:        owned = false; inp = &cin;                       break;
-    case command_line:  owned = true;  inp = new istringstream{argv[2]}; break;
-    case file:          owned = true;  inp = new ifstream{argv[2]};      break;
-    }
-    istream& in = *inp;
+```cpp
+bool owned;
+owner<istream*> inp;
+switch (source) {
+case std_in:        owned = false; inp = &cin;                       break;
+case command_line:  owned = true;  inp = new istringstream{argv[2]}; break;
+case file:          owned = true;  inp = new ifstream{argv[2]};      break;
+}
+istream& in = *inp;
+```
 
 这违反了[避免未初始化变量](#Res-always)，
 [避免忽略所有权](#Ri-raw)，
 和[避免魔法常量](#Res-magic)等规则。
 尤其是，人们必须记得找地方写
 
-    if (owned) delete inp;
+```cpp
+if (owned) delete inp;
+```
 
 我们可以通过使用带有一个特殊的删除器（对 `cin` 不做任何事）的 `unique_ptr` 来处理这个特定的例子，
 但这对于新手来说较复杂（他们很容易遇到这种问题），并且这个例子其实是一个更一般的问题的特例：
@@ -2343,18 +2379,20 @@ GCC 6.1 及其后版本支持概念。
 
 由此，我们编写这样的类
 
-    class Istream { [[gsl::suppress(lifetime)]]
-    public:
-        enum Opt { from_line = 1 };
-        Istream() { }
-        Istream(zstring p) : owned{true}, inp{new ifstream{p}} {}            // 从文件读取
-        Istream(zstring p, Opt) : owned{true}, inp{new istringstream{p}} {}  // 从命令行读取
-        ~Istream() { if (owned) delete inp; }
-        operator istream& () { return *inp; }
-    private:
-        bool owned = false;
-        istream* inp = &cin;
-    };
+```cpp
+class Istream { [[gsl::suppress(lifetime)]]
+public:
+    enum Opt { from_line = 1 };
+    Istream() { }
+    Istream(zstring p) : owned{true}, inp{new ifstream{p}} {}            // 从文件读取
+    Istream(zstring p, Opt) : owned{true}, inp{new istringstream{p}} {}  // 从命令行读取
+    ~Istream() { if (owned) delete inp; }
+    operator istream& () { return *inp; }
+private:
+    bool owned = false;
+    istream* inp = &cin;
+};
+```
 
 这样，`istream` 的所有权的动态本质就被封装起来。
 大体上，在现实的代码中还是需要针对潜在的错误添加一些检查。
@@ -2364,76 +2402,15 @@ GCC 6.1 及其后版本支持概念。
 * 很难，判断那种违背规则的代码是基本的是很难做到的
 * 对允许规则违背的部分跨越接口的规则抑制进行标记
 
-# <a name="S-functions"></a>F: 函数
+# 函数
 
-函数指定了一个活动或者一次计算，以将系统从一种一致的状态转移到另一种一致的状态。函数是程序的基础构造块。
 
-应当使函数的名字有意义，说明对其参数的必要条件，并清晰地规定参数和其结果之间的关系。函数的实现本身并不是规格说明。请尝试同时对函数应当做什么和函数应当怎样做来进行思考。
-函数在大多数接口中都是最关键的部分，请参考接口的规则。
 
-函数规则概览：
-
-函数定义式的规则：
-
-* [F.1: 把有意义的操作“打包”成为精心命名的函数](#Rf-package)
-* [F.2: 一个函数应当实施单一一项逻辑操作](#Rf-logical)
-* [F.3: 保持函数短小简洁](#Rf-single)
-* [F.4: 如果函数可能必须在编译期进行求值，就将其声明为 `constexpr`](#Rf-constexpr)
-* [F.5: 如果函数非常小，并且是时间敏感的，就将其声明为 `inline`](#Rf-inline)
-* [F.6: 如果函数必然不会抛出异常，就将其声明为 `noexcept`](#Rf-noexcept)
-* [F.7: 对于常规用法，应当接受 `T*` 或 `T&` 参数而不是智能指针](#Rf-smart)
-* [F.8: 优先采用纯函数](#Rf-pure)
-* [F.9: 未使用的形参应当没有名字](#Rf-unused)
-
-参数传递表达式的规则：
-
-* [F.15: 优先采用简单的和传统的信息传递方式](#Rf-conventional)
-* [F.16: 对于“输入（in）”参数，把复制操作廉价的类型按值进行传递，把其他类型按 `const` 引用进行传递](#Rf-in)
-* [F.17: 对于“输入/输出（in-out）”参数，按非 `const` 引用进行传递](#Rf-inout)
-* [F.18: 对于“将被移动（will-move-from）”参数，按 `X&&` 进行传递并对参数 `std::move`](#Rf-consume)
-* [F.19: 对于“转发（forward）”参数，按 `TP&&` 进行传递并只对参数 `std::forward`](#Rf-forward)
-* [F.20: 对于“输出（out）”值，采用返回值优先于输出参数](#Rf-out)
-* [F.21: 要返回多个“输出”值，优先返回结构体或元组（tuple）](#Rf-out-multi)
-* [F.60: 当“没有参数”是有效的选项时，采用 `T*` 优先于 `T&`](#Rf-ptr-ref)
-
-参数传递语义的规则：
-
-* [F.22: 用 `T*` 或 `owner<T*>` 来代表单个对象](#Rf-ptr)
-* [F.23: 用 `not_null<T>` 来表明“空值（null）”不是有效的值](#Rf-nullptr)
-* [F.24: 用 `span<T>` 或者 `span_p<T>` 来代表一个半开序列](#Rf-range)
-* [F.25: 用 `zstring` 或者 `not_null<zstring>` 来代表 C 风格的字符串](#Rf-zstring)
-* [F.26: 当需要指针时，用 `unique_ptr<T>` 来传递所有权](#Rf-unique_ptr)
-* [F.27: 用 `shared_ptr<T>` 来共享所有权](#Rf-shared_ptr)
-
-<a name="Rf-value-return"></a>值返回语义的规则：
-
-* [F.42: 返回 `T*` 来（仅仅）给出一个位置](#Rf-return-ptr)
-* [F.43: 不要（直接或间接）返回指向局部对象的指针或引用](#Rf-dangle)
-* [F.44: 当不想进行复制，且不需要“没有对象被返回”时，返回 `T&`](#Rf-return-ref)
-* [F.45: 不要返回 `T&&`](#Rf-return-ref-ref)
-* [F.46: `int` 是 `main()` 的返回类型](#Rf-main)
-* [F.47: 赋值运算符返回 `T&`](#Rf-assignment-op)
-* [F.48: 不要用 `return std::move(local)`](#Rf-return-move-local)
-
-其他函数规则：
-
-* [F.50: 当函数不适用时（不能俘获局部变量，或者不能编写局部函数），就使用 Lambda](#Rf-capture-vs-overload)
-* [F.51: 如果需要作出选择，采用默认实参应当优先于进行重载](#Rf-default-args)
-* [F.52: 对于局部使用的（也包括传递给算法的）lambda，优先采用按引用俘获](#Rf-reference-capture)
-* [F.53: 对于非局部使用的（包括被返回的，在堆上存储的，或者传递给别的线程的）lambda，避免采用按引用俘获](#Rf-value-capture)
-* [F.54: 当俘获了 `this` 时，显式俘获所有的变量（不使用默认俘获）](#Rf-this-capture)
-* [F.55: 不要使用 `va_arg` 参数](#F-varargs)
-* [F.56: 避免不必要的条件嵌套](#F-nesting)
-
-函数和 Lambda 表达式以及函数对象有很强的相似性。
-
-**参见**：[C.lambdas: 函数对象和 lambda](#SS-lambdas)
-
-## <a name="SS-fct-def"></a>F.def: 函数的定义式
+## 函数的定义式
 
 函数的定义式就是一并指定了函数的实现（函数体）的函数声明式。
 
-### <a name="Rf-package"></a>F.1: 把有意义的操作“打包”成为精心命名的函数
+### 把有意义的操作“打包”成为精心命名的函数
 
 ##### 理由
 
@@ -2442,14 +2419,16 @@ GCC 6.1 及其后版本支持概念。
 
 ##### 示例，请勿这样做
 
-    void read_and_print(istream& is)    // 读取并打印一个 int
-    {
-        int x;
-        if (is >> x)
-            cout << "the int is " << x << '\n';
-        else
-            cerr << "no int on input\n";
-    }
+```cpp
+void read_and_print(istream& is)    // 读取并打印一个 int
+{
+    int x;
+    if (is >> x)
+        cout << "the int is " << x << '\n';
+    else
+        cerr << "no int on input\n";
+}
+```
 
 `read_and_print` 的几乎每件事都有问题。
 它进行了读取，它（向一个固定 `ostream`）进行了写入，它（向一个固定的 `ostream`）写入了错误消息，它只能处理 `int`。
@@ -2463,14 +2442,18 @@ GCC 6.1 及其后版本支持概念。
 
 ##### 示例
 
-    sort(a, b, [](T x, T y) { return x.rank() < y.rank() && x.value() < y.value(); });
+```cpp
+sort(a, b, [](T x, T y) { return x.rank() < y.rank() && x.value() < y.value(); });
+```
 
 对 lambda 进行命名，将会把这个表达式进行逻辑上的分解，还会为 lambda 的含义给出有力的提示。
 
-    auto lessT = [](T x, T y) { return x.rank() < y.rank() && x.value() < y.value(); };
-    
-    sort(a, b, lessT);
-    find_if(a, b, lessT);
+```cpp
+auto lessT = [](T x, T y) { return x.rank() < y.rank() && x.value() < y.value(); };
+
+sort(a, b, lessT);
+find_if(a, b, lessT);
+```
 
 对于性能和可维护性来说，最简短的代码并不总是最好的选择。
 
@@ -2486,7 +2469,7 @@ GCC 6.1 及其后版本支持概念。
 * 参见“[保持函数短小简洁](#Rf-single)”
 * 把不同地方所用的同样和非常相似的 lambda 标记出来。
 
-### <a name="Rf-logical"></a>F.2: 一个函数应当实施单一一项逻辑操作
+###  一个函数应当实施单一一项逻辑操作
 
 ##### 理由
 
@@ -2496,49 +2479,57 @@ GCC 6.1 及其后版本支持概念。
 
 考虑：
 
-    void read_and_print()    // 不好
-    {
-        int x;
-        cin >> x;
-        // 检查错误
-        cout << x << "\n";
-    }
+```cpp
+void read_and_print()    // 不好
+{
+    int x;
+    cin >> x;
+    // 检查错误
+    cout << x << "\n";
+}
+```
 
 这是一整块被绑定到一个特定的输入的代码，而且无法为其找到另一种（不同的）用途。作为代替，我们把函数分解为合适的逻辑部分并进行参数化：
 
-    int read(istream& is)    // 有改进
-    {
-        int x;
-        is >> x;
-        // 检查错误
-        return x;
-    }
-    
-    void print(ostream& os, int x)
-    {
-        os << x << "\n";
-    }
+```cpp
+int read(istream& is)    // 有改进
+{
+    int x;
+    is >> x;
+    // 检查错误
+    return x;
+}
+
+void print(ostream& os, int x)
+{
+    os << x << "\n";
+}
+```
 
 这样的话，就可以在需要时进行组合：
 
-    void read_and_print()
-    {
-        auto x = read(cin);
-        print(cout, x);
-    }
+```cpp
+void read_and_print()
+{
+    auto x = read(cin);
+    print(cout, x);
+}
+```
 
 如果有需要，我们还可以进一步把 `read()` 和 `print()` 针对数据类型，I/O 机制，以及对错误的反应等等方面进行模板化。例如：
 
-    auto read = [](auto& input, auto& value)    // 有改善
-    {
-        input >> value;
-        // 检查错误
-    };
-    
-    auto print(auto& output, const auto& value)
-    {
-        output << value << "\n";
-    }
+```cpp
+auto read = [](auto& input, auto& value)    // 有改善
+{
+    input >> value;
+    // 检查错误
+};
+
+auto print(auto& output, const auto& value)
+{
+    output << value << "\n";
+}
+```
 
 ##### 强制实施
 
@@ -2546,7 +2537,7 @@ GCC 6.1 及其后版本支持概念。
 * 把无法装入编辑器的一屏之内的“大型”函数当作有问题的。考虑把这种函数分解为较小的恰当命名的子操作。
 * 把有七个或更多参数的函数当作有问题的。
 
-### <a name="Rf-single"></a>F.3: 保持函数短小简洁
+### 保持函数短小简洁
 
 ##### 理由
 
@@ -2557,33 +2548,35 @@ GCC 6.1 及其后版本支持概念。
 
 考虑：
 
-    double simple_func(double val, int flag1, int flag2)
-        // simple_func: 接受一个值并计算所需的 ASIC 值，
-        // 依赖于两个模式标记。
-    {
-        double intermediate;
-        if (flag1 > 0) {
-            intermediate = func1(val);
-            if (flag2 % 2)
-                 intermediate = sqrt(intermediate);
-        }
-        else if (flag1 == -1) {
-            intermediate = func1(-val);
-            if (flag2 % 2)
-                 intermediate = sqrt(-intermediate);
-            flag1 = -flag1;
-        }
-        if (abs(flag2) > 10) {
-            intermediate = func2(intermediate);
-        }
-        switch (flag2 / 10) {
-        case 1: if (flag1 == -1) return finalize(intermediate, 1.171);
-                break;
-        case 2: return finalize(intermediate, 13.1);
-        default: break;
-        }
-        return finalize(intermediate, 0.);
+```cpp
+double simple_func(double val, int flag1, int flag2)
+    // simple_func: 接受一个值并计算所需的 ASIC 值，
+    // 依赖于两个模式标记。
+{
+    double intermediate;
+    if (flag1 > 0) {
+        intermediate = func1(val);
+        if (flag2 % 2)
+             intermediate = sqrt(intermediate);
     }
+    else if (flag1 == -1) {
+        intermediate = func1(-val);
+        if (flag2 % 2)
+             intermediate = sqrt(-intermediate);
+        flag1 = -flag1;
+    }
+    if (abs(flag2) > 10) {
+        intermediate = func2(intermediate);
+    }
+    switch (flag2 / 10) {
+    case 1: if (flag1 == -1) return finalize(intermediate, 1.171);
+            break;
+    case 2: return finalize(intermediate, 13.1);
+    default: break;
+    }
+    return finalize(intermediate, 0.);
+}
+```
 
 这个函数过于复杂了。
 要如何判断是否所有的可能性都被正确处理了呢？
@@ -2591,27 +2584,29 @@ GCC 6.1 及其后版本支持概念。
 
 我们可以进行重构：
 
-    double func1_muon(double val, int flag)
-    {
-        // ???
-    }
-    
-    double func1_tau(double val, int flag1, int flag2)
-    {
-        // ???
-    }
-    
-    double simple_func(double val, int flag1, int flag2)
-        // simple_func: 接受一个值并计算所需的 ASIC 值，
-        // 依赖于两个模式标记。
-    {
-        if (flag1 > 0)
-            return func1_muon(val, flag2);
-        if (flag1 == -1)
-            // 由 func1_tau 来处理: flag1 = -flag1;
-            return func1_tau(-val, flag1, flag2);
-        return 0.;
-    }
+```cpp
+double func1_muon(double val, int flag)
+{
+    // ???
+}
+
+double func1_tau(double val, int flag1, int flag2)
+{
+    // ???
+}
+
+double simple_func(double val, int flag1, int flag2)
+    // simple_func: 接受一个值并计算所需的 ASIC 值，
+    // 依赖于两个模式标记。
+{
+    if (flag1 > 0)
+        return func1_muon(val, flag2);
+    if (flag1 == -1)
+        // 由 func1_tau 来处理: flag1 = -flag1;
+        return func1_tau(-val, flag1, flag2);
+    return 0.;
+}
+```
 
 ##### 注解
 
@@ -2630,7 +2625,7 @@ GCC 6.1 及其后版本支持概念。
 * 标记过于复杂的函数。多复杂算是过于复杂呢？
   应当用圈复杂度来度量。可以试试“多于 10 个逻辑路径”。一个简单的开关算作一条路径。
 
-### <a name="Rf-constexpr"></a>F.4: 如果函数可能必须在编译期进行求值，就将其声明为 `constexpr`
+### 如果函数可能必须在编译期进行求值，就将其声明为 `constexpr`
 
 ##### 理由
 
@@ -2640,14 +2635,16 @@ GCC 6.1 及其后版本支持概念。
 
 （不）著名的阶乘例子：
 
-    constexpr int fac(int n)
-    {
-        constexpr int max_exp = 17;      // constexpr 使得可以在 Expects 中使用 max_exp
-        Expects(0 <= n && n < max_exp);  // 防止犯糊涂和发生溢出
-        int x = 1;
-        for (int i = 2; i <= n; ++i) x *= i;
-        return x;
-    }
+```cpp
+constexpr int fac(int n)
+{
+    constexpr int max_exp = 17;      // constexpr 使得可以在 Expects 中使用 max_exp
+    Expects(0 <= n && n < max_exp);  // 防止犯糊涂和发生溢出
+    int x = 1;
+    for (int i = 2; i <= n; ++i) x *= i;
+    return x;
+}
+```
 
 这个是 C++14。
 对于 C++11，请使用递归形式的 `fac()`。
@@ -2657,15 +2654,17 @@ GCC 6.1 及其后版本支持概念。
 `constexpr` 并不会保证发生编译期求值；
 它只能保证函数可以在当程序员需要或者编译器为优化而决定时，对常量表达式实参进行编译期求值。
 
-    constexpr int min(int x, int y) { return x < y ? x : y; }
-    
-    void test(int v)
-    {
-        int m1 = min(-1, 2);            // 可能进行编译期求值
-        constexpr int m2 = min(-1, 2);  // 编译期求值
-        int m3 = min(-1, v);            // 运行期求值
-        constexpr int m4 = min(-1, v);  // 错误: 无法在编译期求值
-    }
+```cpp
+constexpr int min(int x, int y) { return x < y ? x : y; }
+
+void test(int v)
+{
+    int m1 = min(-1, 2);            // 可能进行编译期求值
+    constexpr int m2 = min(-1, 2);  // 编译期求值
+    int m3 = min(-1, v);            // 运行期求值
+    constexpr int m4 = min(-1, v);  // 错误: 无法在编译期求值
+}
+```
 
 ##### 注解
 
@@ -2684,7 +2683,7 @@ GCC 6.1 及其后版本支持概念。
 不可能也不必要。
 当在要求常量的地方调用了非 `constexpr` 函数时，编译器会报告错误。
 
-### <a name="Rf-inline"></a>F.5: 如果函数非常小，并且是时间敏感的，就将其声明为 `inline`
+### 如果函数非常小，并且是时间敏感的，就将其声明为 `inline`
 
 ##### 理由
 
@@ -2695,7 +2694,9 @@ GCC 6.1 及其后版本支持概念。
 
 ##### 示例
 
-    inline string cat(const string& s, const string& s2) { return s + s2; }
+```cpp
+inline string cat(const string& s, const string& s2) { return s + s2; }
+```
 
 ##### 例外
 
@@ -2718,7 +2719,7 @@ GCC 6.1 及其后版本支持概念。
 
 对超过三条语句，并且本可以声明为非内联的 `inline` 函数（比如类成员函数）标记为 `inline`。
 
-### <a name="Rf-noexcept"></a>F.6: 如果函数必然不会抛出异常，就将其声明为 `noexcept`
+### 如果函数必然不会抛出异常，就将其声明为 `noexcept`
 
 ##### 理由
 
@@ -2737,13 +2738,15 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 对能够抛出异常的函数也可以使用 `noexcept`：
 
-    vector<string> collect(istream& is) noexcept
-    {
-        vector<string> res;
-        for (string s; is >> s;)
-            res.push_back(s);
-        return res;
-    }
+```cpp
+vector<string> collect(istream& is) noexcept
+{
+    vector<string> res;
+    for (string s; is >> s;)
+        res.push_back(s);
+    return res;
+}
+```
 
 如果 `collect()` 耗光了内存，程序就会崩溃。
 除非这个程序特别精心编写成不会耗尽内存，否则这也许正是正确的方式；
@@ -2780,7 +2783,7 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 * 标记不是 `noexcept`，而又不能抛出异常的函数。
 * 标记抛出异常的 `swap`，`move`，析构函数，以及默认构造函数。
 
-### <a name="Rf-smart"></a>F.7: 对于常规用法，应当接受 `T*` 或 `T&` 参数而不是智能指针
+### 对于常规用法，应当接受 `T*` 或 `T&` 参数而不是智能指针
 
 ##### 理由
 
@@ -2794,54 +2797,60 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 ##### 示例
 
-    // 接受任何的 int*
-    void f(int*);
-    
-    // 只能接受你想转移所有权的 int
-    void g(unique_ptr<int>);
-    
-    // 只能接受你想共享所有权的 int
-    void g(shared_ptr<int>);
-    
-    // 不会改变所有权，但要求调用方对其具有特定的所有权。
-    void h(const unique_ptr<int>&);
-    
-    // 接受任何的 int
-    void h(int&);
+```cpp
+// 接受任何的 int*
+void f(int*);
+
+// 只能接受你想转移所有权的 int
+void g(unique_ptr<int>);
+
+// 只能接受你想共享所有权的 int
+void g(shared_ptr<int>);
+
+// 不会改变所有权，但要求调用方对其具有特定的所有权。
+void h(const unique_ptr<int>&);
+
+// 接受任何的 int
+void h(int&);
+```
 
 ##### 示例，不好
 
-    // 被调用方
-    void f(shared_ptr<widget>& w)
-    {
-        // ...
-        use(*w); // w 的唯一使用点 -- 其生存期是完全未被涉及到的
-        // ...
-    };
-    
-    // 调用方
-    shared_ptr<widget> my_widget = /* ... */;
-    f(my_widget);
-    
-    widget stack_widget;
-    f(stack_widget); // 错误
+```cpp
+// 被调用方
+void f(shared_ptr<widget>& w)
+{
+    // ...
+    use(*w); // w 的唯一使用点 -- 其生存期是完全未被涉及到的
+    // ...
+};
+
+// 调用方
+shared_ptr<widget> my_widget = /* ... */;
+f(my_widget);
+
+widget stack_widget;
+f(stack_widget); // 错误
+```
 
 ##### 示例，好
 
-    // 被调用方
-    void f(widget& w)
-    {
-        // ...
-        use(w);
-        // ...
-    };
-    
-    // 调用方
-    shared_ptr<widget> my_widget = /* ... */;
-    f(*my_widget);
-    
-    widget stack_widget;
-    f(stack_widget); // ok -- 这样就有效了
+```cpp
+// 被调用方
+void f(widget& w)
+{
+    // ...
+    use(w);
+    // ...
+};
+
+// 调用方
+shared_ptr<widget> my_widget = /* ... */;
+f(*my_widget);
+
+widget stack_widget;
+f(stack_widget); // ok -- 这样就有效了
+```
 
 ##### 注解
 
@@ -2859,7 +2868,7 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 * [当“无实参”是有效情形时，优先采用 `T*` 而不是 `T&`](#Rf-ptr-ref)
 * [智能指针规则概述](#Rr-summary-smartptrs)
 
-### <a name="Rf-pure"></a>F.8: 优先采用纯函数
+### 优先采用纯函数
 
 ##### 理由
 
@@ -2874,7 +2883,7 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 不可能进行强制实施。
 
-### <a name="Rf-unused"></a>F.9: 未使用的形参应当没有名字
+### 未使用的形参应当没有名字
 
 ##### 理由
 
@@ -2893,11 +2902,11 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 对有名字的未使用形参进行标记。
 
-## <a name="SS-call"></a>F.call: 参数传递
+## 参数传递
 
 存在各种不同的向函数传递参数和返回值的方式。
 
-### <a name="Rf-conventional"></a>F.15: 优先采用简单的和传统的信息传递方式
+### 优先采用简单的和传统的信息传递方式
 
 ##### 理由
 
@@ -2908,17 +2917,19 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 一般性参数传递：
 
-![一般性参数传递表](C:/Users/MEI/AppData/Local/Temp/BNZ.609382a9f0aa88/images/param-passing-normal.png "一般性参数传递")
+![](C++ 核心指导方针/param-passing-normal.png)
+
+
 
 高级参数传递：
 
-![高级参数传递表](C:/Users/MEI/AppData/Local/Temp/BNZ.609382a9f0aa88/images/param-passing-advanced.png "高级参数传递")
+![param-passing-advanced](C++ 核心指导方针/param-passing-advanced.png)
 
 只有在进行论证必要之后再使用高级技巧，并将其必要性注明在代码注释中。
 
 对于字符序列的传递，参见 [字符串](#SS-string)。
 
-### <a name="Rf-in"></a>F.16: 对于“输入（in）”参数，把复制操作廉价的类型按值进行传递，把其他类型按 `const` 引用进行传递
+### 对于“输入（in）”参数，把复制操作廉价的类型按值进行传递，把其他类型按 `const` 引用进行传递
 
 ##### 理由
 
@@ -2929,13 +2940,15 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 ##### 示例
 
-    void f1(const string& s);  // OK: 按 const 引用传递; 总是廉价的
-    
-    void f2(string s);         // bad: 可能是昂贵的
-    
-    void f3(int x);            // OK: 无可比拟
-    
-    void f4(const int& x);     // bad: f4() 中的访问带来开销
+```cpp
+void f1(const string& s);  // OK: 按 const 引用传递; 总是廉价的
+
+void f2(string s);         // bad: 可能是昂贵的
+
+void f3(int x);            // OK: 无可比拟
+
+void f4(const int& x);     // bad: f4() 中的访问带来开销
+```
 
 （仅）对于高级的运用，如果你确实需要为“只当作输入”的参数的按右值传递进行优化的话：
 
@@ -2946,12 +2959,14 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 ##### 示例
 
-    int multiply(int, int); // 仅输入了 int，按值传递
-    
-    // suffix 仅作输入，但并不如 int 那样廉价，因此按 const& 传递
-    string& concatenate(string&, const string& suffix);
-    
-    void sink(unique_ptr<widget>);  // 仅作输入，但移动了这个 widget 的所有权
+```cpp
+int multiply(int, int); // 仅输入了 int，按值传递
+
+// suffix 仅作输入，但并不如 int 那样廉价，因此按 const& 传递
+string& concatenate(string&, const string& suffix);
+
+void sink(unique_ptr<widget>);  // 仅作输入，但移动了这个 widget 的所有权
+```
 
 避免以下这类的“玄奥技巧”：
 
@@ -2963,16 +2978,18 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 假设 `Matrix` 带有移动操作（可能它将其元素都保存在一个 `std::vector` 中）：
 
-    Matrix operator+(const Matrix& a, const Matrix& b)
-    {
-        Matrix res;
-        // ... 用二者的和填充 res ...
-        return res;
-    }
-    
-    Matrix x = m1 + m2;  // 移动构造函数
-    
-    y = m3 + m3;         // 移动赋值
+```cpp
+Matrix operator+(const Matrix& a, const Matrix& b)
+{
+    Matrix res;
+    // ... 用二者的和填充 res ...
+    return res;
+}
+
+Matrix x = m1 + m2;  // 移动构造函数
+
+y = m3 + m3;         // 移动赋值
+```
 
 ##### 注解
 
@@ -2989,7 +3006,7 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 * 【简单】〔基础〕 当按 `const` 引用传递的参数的大小小于 `2 * sizeof(void*)` 时给出警告。建议代之以按值传递。
 * 【简单】〔基础〕 当按 `const` 引用传递的参数被 `move` 时给出警告。
 
-### <a name="Rf-inout"></a>F.17: 对于“输入/输出（in-out）”参数，按非 `const` 引用进行传递
+### 对于“输入/输出（in-out）”参数，按非 `const` 引用进行传递
 
 ##### 理由
 
@@ -2997,24 +3014,28 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 ##### 示例
 
-    void update(Record& r);  // 假定 update 将会写入 r
+```cpp
+void update(Record& r);  // 假定 update 将会写入 r
+```
 
 ##### 注解
 
 `T&` 参数既可以向函数中传递信息，也可以传递出来。
 因此 `T&` 能够作为“输入/输出”参数。这点本身就可能是一种错误的来源：
 
-    void f(string& s)
-    {
-        s = "New York";  // 不明显的错误
-    }
-    
-    void g()
-    {
-        string buffer = ".................................";
-        f(buffer);
-        // ...
-    }
+```cpp
+void f(string& s)
+{
+    s = "New York";  // 不明显的错误
+}
+
+void g()
+{
+    string buffer = ".................................";
+    f(buffer);
+    // ...
+}
+```
 
 这里，`g()` 的作者提供了一个缓冲区让 `f()` 来填充，但 `f()` 仅仅替换掉了它（以多少比简单的字符复制高一些的成本）。
 如果 `g()` 的作者对 `buffer` 的大小作出了错误的假设的话，就会发生糟糕的逻辑错误。
@@ -3024,7 +3045,7 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 * 【中等】〔基础〕 对带有指向非 `const` 的引用参数但又*不*向其进行写入的函数给出警告。
 * 【简单】〔基础〕 当按引用传递的非 `const` 参数被进行 `move` 时给出引用。
 
-### <a name="Rf-consume"></a>F.18: 对于“将被移动（will-move-from）”参数，按 `X&&` 进行传递并对参数 `std::move`
+### 对于“将被移动（will-move-from）”参数，按 `X&&` 进行传递并对参数 `std::move`
 
 ##### 理由
 
@@ -3049,11 +3070,13 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 例如：
 
-    template<class T>
-    void sink(std::unique_ptr<T> p)
-    {
-        // 使用 p ... 可能在之后的什么地方 std::move(p)
-    }   // p 被销毁
+```cpp
+template<class T>
+void sink(std::unique_ptr<T> p)
+{
+    // 使用 p ... 可能在之后的什么地方 std::move(p)
+}   // p 被销毁
+```
 
 ##### 强制实施
 
@@ -3061,7 +3084,7 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 * 标明对已经被移动过的对象的访问。
 * 不要有条件地从对象进行移动。
 
-### <a name="Rf-forward"></a>F.19: 对于“转发（forward）”参数，按 `TP&&` 进行传递并只对参数 `std::forward`
+### 对于“转发（forward）”参数，按 `TP&&` 进行传递并只对参数 `std::forward`
 
 ##### 理由
 
@@ -3071,19 +3094,21 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 ##### 示例
 
-    template<class F, class... Args>
-    inline auto invoke(F f, Args&&... args)
-    {
-        return f(forward<Args>(args)...);
-    }
-    
-    ??? calls ???
+```cpp
+template<class F, class... Args>
+inline auto invoke(F f, Args&&... args)
+{
+    return f(forward<Args>(args)...);
+}
+
+??? calls ???
+```
 
 ##### 强制实施
 
 * 对于接受 `TP&&` 参数的函数（其中的 `TP` 不是模板类型参数的名字），如果函数对它做了任何别的事，而不是在每个静态路径中都正好进行一次 `std::forward`，就将函数进行标明。
 
-### <a name="Rf-out"></a>F.20: 对于“输出（out）”值，采用返回值优先于输出参数
+### 对于“输出（out）”值，采用返回值优先于输出参数
 
 ##### 理由
 
@@ -3095,11 +3120,13 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 ##### 示例
 
-    // OK: 返回指向具有 x 值的元素的指针
-    vector<const int*> find_all(const vector<int>&, int x);
-    
-    // 不好: 把指向具有 x 值的元素的指针放入 out
-    void find_all(const vector<int>&, vector<const int*>& out, int x);
+```cpp
+// OK: 返回指向具有 x 值的元素的指针
+vector<const int*> find_all(const vector<int>&, int x);
+
+// 不好: 把指向具有 x 值的元素的指针放入 out
+void find_all(const vector<int>&, vector<const int*>& out, int x);
+```
 
 ##### 注解
 
@@ -3110,15 +3137,17 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 不建议返回 `const` 值。
 这种老旧的建议已经过时了；它并不会带来什么价值，而且还会对移动语义造成影响。
 
-    const vector<int> fct();    // 不好: 这个 "const" 带来的麻烦超过其价值
-    
-    vector<int> g(const vector<int>& vx)
-    {
-        // ...
-        fct() = vx;   // 被 "const" 所禁止
-        // ...
-        return fct(); // 昂贵的复制："const" 抑制掉了移动语义
-    }
+```cpp
+const vector<int> fct();    // 不好: 这个 "const" 带来的麻烦超过其价值
+
+vector<int> g(const vector<int>& vx)
+{
+    // ...
+    fct() = vx;   // 被 "const" 所禁止
+    // ...
+    return fct(); // 昂贵的复制："const" 抑制掉了移动语义
+}
+```
 
 要求对返回值添加 `const` 的理由是可以防止（非常少见的）对临时对象的意外访问。
 而反对的理由则是它妨碍了（非常常见的）对移动语义的利用。
@@ -3131,16 +3160,18 @@ C++ 标准库隐含地对 C 标准库中的所有函数做了这件事。
 
 ##### 示例
 
-    struct Package {      // 特殊情况: 移动操作昂贵的对象
-        char header[16];
-        char load[2024 - 16];
-    };
-    
-    Package fill();       // 不好: 大型的返回值
-    void fill(Package&);  // OK
-    
-    int val();            // OK
-    void val(int&);       // 不好: val 会不会读取参数？
+```cpp
+struct Package {      // 特殊情况: 移动操作昂贵的对象
+    char header[16];
+    char load[2024 - 16];
+};
+
+Package fill();       // 不好: 大型的返回值
+void fill(Package&);  // OK
+
+int val();            // OK
+void val(int&);       // 不好: val 会不会读取参数？
+```
 
 ##### 强制实施
 

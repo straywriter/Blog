@@ -2,26 +2,12 @@
 title: CMake常用变量
 top: false
 mathjax: true
-date: 2021-03-22 21:59:11
+date: 2021-05-22 21:59:11
 categories:
 - CMake
 ---
 
 -----
-
-
-
-
-
-# a
-
-项目信息
-
-系统信息
-
-开关选项
-
-常用命令
 
 ### 项目信息
 

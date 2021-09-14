@@ -2,24 +2,20 @@
 title: C++ STL容器用法
 top: false
 mathjax: true
-date: 2021-03-22 21:59:11
+date: 2021-02-20 21:59:11
 categories:
-- C++
+- CMake
 ---
 
 -----
 
-
-
-
-
 ## 自定义内容
 
-### 12.1 add_custom_command 为某一个工程添加一个自定义的命令
+### add_custom_command 为某一个工程添加一个自定义的命令
 
 *参考链接：* [各平台编译器中的Pre-build及Post-build操作](https://www.jianshu.com/p/66df9650a9e2)
 
-```
+```cmake
 add_custom_command(TARGET target 
     PRE_BUILD | PRE_LINK| POST_BUILD 
     COMMAND command1[ARGS] [args1...] 
@@ -37,7 +33,7 @@ add_custom_command(TARGET target
 
 例子：
 
-```
+```cmake
 add_custom_command(
     TARGET ${PROJECT_NAME} 
     POST_BUILD 
@@ -55,11 +51,11 @@ add_custom_command(
 #在test_el执行依赖之前，将start.o文件复制到编译目录
 ```
 
-### 12.2 add_custom_command：（2）添加自定义命令来产生一个输出
+### add_custom_command：添加自定义命令来产生一个输出
 
 参数格式：
 
-```
+```cmake
 add_custom_command(
     OUTPUT output1 [output2 ...]
     COMMAND command1[ARGS] [args1...]
@@ -81,7 +77,7 @@ add_custom_command(
 
 例子：
 
-```
+```cmake
 #首先生成creator的可执行文件 
 add_executable(creator creator.cxx) 
 #获取EXE_LOC的LOCATION属性存放到creator里面 
@@ -99,9 +95,9 @@ add_executable(Foo ${PROJECT_BINARY_DIR}/created.c)
 
 注意：不要在多个相互独立的文件中使用该命令产生相同的文件，放置冲突。
 
-### 12.3 add_custom_target:增加定制目标。
+### add_custom_target:增加定制目标。
 
-```
+```cmake
 add_custom_target(
     Name [ALL] [command1 [args1...]] 
     [COMMAND command2 [args2...] ...] 
@@ -116,7 +112,7 @@ add_custom_target(
 
 add_custom_target 可以增加定制目标，常常用于编译文档、运行测试用例等。
 
-### 12.4 add_custom_command和add_custom_target的区别
+### add_custom_command和add_custom_target的区别
 
 - 命令命名里面的区别就在于：command和target，前者是自定义命令，后者是自定义目标
 - 目标：使用add_custom_target定义的叫做自定义目标，因此这些“目标”区别于正常的目标，他们不生成exe或者lib，但是仍然会具有一些正常目标相同的属性，构建他们的时候，只是调用了为他们设置的命令，如果自定义目标对于其他目标有依赖，那么就会优先生成依赖的那些目标。
@@ -124,6 +120,8 @@ add_custom_target 可以增加定制目标，常常用于编译文档、运行�
 
 
 
+## 相关参考
 
+[代码构建系统之CMake | Walker's Blog (walkerdu.com)](http://walkerdu.com/2020/10/27/cmake/)
 
-# 
+[CMake 3.20 中文 (runebook.dev)](https://runebook.dev/zh-CN/docs/cmake/-index-)
